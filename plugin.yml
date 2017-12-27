@@ -1,0 +1,8 @@
+name: ChestProtection
+version: 1.0.1
+main: lols.ChestProtection
+author: DaAmazingShit
+commands:
+    ochrona:
+        usage: /ochrona
+        description: Menu ochrony pojemnikow
