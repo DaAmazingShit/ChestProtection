@@ -1,8 +1,8 @@
 name: ChestProtection
-version: 1.0.2
+version: 1.0.3
 main: pl.amazingshit.cp.ChestProtection
 author: DaAmazingShit
 commands:
-    ochrona:
-        usage: /ochrona
-        description: Menu ochrony pojemnikow
+    cp:
+        usage: /cp
+        description: Container protection manager
