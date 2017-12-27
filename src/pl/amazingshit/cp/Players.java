@@ -11,7 +11,6 @@ public class Players extends PlayerListener {
 	
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		// to jes kiedy gracz zaznacza
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
 			return;
 		}
@@ -19,14 +18,12 @@ public class Players extends PlayerListener {
 		if (!(e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.FURNACE || e.getClickedBlock().getType() == Material.DISPENSER || e.getClickedBlock().getType() == Material.JUKEBOX)) {
 			return;
 		}
-		// jezeli pojemnik jest zabezpieczony
-		if (Database.czyPojemnikJestZabezpieczony(block.getLocation())) {
-			// jezeli pojemnik nalezy do gracza
-		    if (Database.czyPojemnikJestGracza(e.getPlayer(), block.getLocation())) {
+		if (Database.isContainerProtected(block.getLocation())) {
+		    if (Database.doesPlayerOwnContainer(e.getPlayer(), block.getLocation())) {
 			    return;
 		    }
 		    
-			e.getPlayer().sendMessage(ChatColor.RED + "Nie twój pojemnik.");
+			e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 			e.setCancelled(true);
 		}
 	}

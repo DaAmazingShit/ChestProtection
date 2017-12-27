@@ -16,7 +16,7 @@ public class Database {
 	
 	public static Configuration config = new Configuration(new File("plugins/ChestProtection", "database.yml"));
 	
-	public static Boolean czyPojemnikJestGracza(Player p, Location loc) {
+	public static Boolean doesPlayerOwnContainer(Player p, Location loc) {
 		config.load();
 		List<String> gracze = new LinkedList<String>();
 		gracze = config.getStringList(toString(loc), gracze);
@@ -28,7 +28,7 @@ public class Database {
 		}
 	}
 	
-	public static Boolean dodajPojemnikDoDatabase(Player p, Location loc) {
+	public static Boolean addContainerToDB(Player p, Location loc) {
 		try {
 			config.load();
 			List<String> gracze = new LinkedList<String>();
@@ -47,7 +47,7 @@ public class Database {
 		}
 	}
 	
-	public static Block dawejTypPojemnikaZLokacji(Location loc) {
+	public static Block getBlockFromLocation(Location loc) {
 		try {
 			config.load();
 			
@@ -62,7 +62,7 @@ public class Database {
 		}
 	}
 	
-	public static Boolean usunPojemnikZDatabase(Location loc) {
+	public static Boolean removeContainerFromDB(Location loc) {
 		try {
 			config.load();
 			config.removeProperty(toString(loc));
@@ -75,7 +75,7 @@ public class Database {
 		}
 	}
 	
-	public static Boolean usunGraczaZPojemnika(Player p, Location loc) {
+	public static Boolean removePlayerFromContainer(Player p, Location loc) {
 		try {
 			config.load();
 			List<String> gracze = new LinkedList<String>();
@@ -91,7 +91,7 @@ public class Database {
 		}
 	}
 	
-	public static Boolean czyPojemnikJestZabezpieczony(Location loc) {
+	public static Boolean isContainerProtected(Location loc) {
 		config.load();
 		if (config.getProperty(toString(loc)) == null) {
 			return false;
@@ -101,7 +101,7 @@ public class Database {
 		}
 	}
 	
-	public static Boolean czyBlokJestZabezpieczalny(Block b) {
+	public static Boolean isBlockProtectable(Block b) {
 		if (b.getType() == Material.CHEST || b.getType() == Material.JUKEBOX || b.getType() == Material.BURNING_FURNACE || 
 				b.getType() == Material.FURNACE || b.getType() == Material.DISPENSER) {
 			return true;
@@ -111,7 +111,7 @@ public class Database {
 		}
 	}
 	
-	public static Boolean czyMaterialJestZabezpieczalny(Material b) {
+	public static Boolean isMaterialProtectable(Material b) {
 		if (b == Material.CHEST || b == Material.JUKEBOX || b == Material.BURNING_FURNACE || 
 				b == Material.FURNACE || b == Material.DISPENSER) {
 			return true;
@@ -127,7 +127,7 @@ public class Database {
 	 * 
 	 * @category Database creation
 	 */
-    public static void stworzDatabase() {
+    public static void createDatabase() {
     	config.load();
     	config.setHeader(
     			"# Info:",
@@ -140,7 +140,7 @@ public class Database {
     	config.save();
     }
     
-    public static Boolean databaseIstnieje() {
+    public static Boolean databaseExists() {
     	config.load();
     	if (config.getProperty("version") == null) {
     		return false;

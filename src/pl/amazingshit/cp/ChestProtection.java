@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;
+	public static Lang lang;
 	
 	@Override
 	public void onDisable() {
@@ -23,10 +24,12 @@ public class ChestProtection extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		lang = new Lang();
 		instance = this;
-		if (!Database.databaseIstnieje()) {
-			Database.stworzDatabase();
+		if (!Database.databaseExists()) {
+			Database.createDatabase();
 		}
+		lang.setup();
 		
 		Bukkit.getServer().getLogger().info("ChestProtection enabled");
 		
@@ -48,37 +51,37 @@ public class ChestProtection extends JavaPlugin {
 			return true;
 		}
 		
-		if (cmd.getName().equalsIgnoreCase("ochrona")) {
+		if (cmd.getName().equalsIgnoreCase("cp")) {
 			if (args.length == 0) {
-				sender.sendMessage("/ochrona usun  - Usuwa ochrone z wczesniej zaznaczonego pojemnika (LPM)");
-				sender.sendMessage("/ochrona dodaj - Dodaje ochrone do wczesniej zaznaczonego pojemnika (LPM)");
+				sender.sendMessage(ChatColor.RED + lang.helpAdd);
+				sender.sendMessage(ChatColor.RED + lang.helpRemove);
 				return true;
 			}
 			Player p = (Player)sender;
-			if (args[0].equalsIgnoreCase("usun")) {
-				if (Blocks.ostatnioklik.get(p.getName()) != null) {
-					Location toRemove = Blocks.ostatnioklik.get(p.getName());
+			if (args[0].equalsIgnoreCase(lang.protectionArgRemove)) {
+				if (Blocks.lastClicked.get(p.getName()) != null) {
+					Location toRemove = Blocks.lastClicked.get(p.getName());
 					
-					Database.usunPojemnikZDatabase(toRemove);
+					Database.removeContainerFromDB(toRemove);
 					
-					p.sendMessage(ChatColor.YELLOW + "Pojemnik jest teraz publiczny.");
+					p.sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
 					return true;
 				} else {
-					p.sendMessage(ChatColor.RED + "Nie zaznaczyles pojemnika!");
+					p.sendMessage(ChatColor.RED + ChestProtection.lang.containerNotSelected);
 					return true;
 				}
 			}
 			
-			if (args[0].equalsIgnoreCase("dodaj")) {
-				if (Blocks.ostatnioklik.get(p.getName()) != null) {
-					Location toAdd = Blocks.ostatnioklik.get(p.getName());
+			if (args[0].equalsIgnoreCase(lang.protectionArgAdd)) {
+				if (Blocks.lastClicked.get(p.getName()) != null) {
+					Location toAdd = Blocks.lastClicked.get(p.getName());
 					
-					Database.dodajPojemnikDoDatabase(p, toAdd);
+					Database.addContainerToDB(p, toAdd);
 					
-					p.sendMessage(ChatColor.YELLOW + "Pojemnik jest teraz prywatny.");
+					p.sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
 					return true;
 				} else {
-					p.sendMessage(ChatColor.RED + "Nie zaznaczyles pojemnika!");
+					p.sendMessage(ChatColor.RED + ChestProtection.lang.containerNotSelected);
 					return true;
 				}
 			}

@@ -14,8 +14,8 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 public class Blocks extends BlockListener {
-	//                    gracz   skrzynka
-	public static HashMap<String, Location> ostatnioklik = new HashMap<String, Location>();
+	//                    player  container
+	public static HashMap<String, Location> lastClicked = new HashMap<String, Location>();
 	
 	@Override
 	public void onBlockPlace(BlockPlaceEvent e) {
@@ -35,40 +35,40 @@ public class Blocks extends BlockListener {
 			int zminus = e.getBlockPlaced().getLocation().getBlockZ()-1;
 			int z1     = e.getBlockPlaced().getLocation().getBlockZ()+1;
 			
-			if (world.getBlockAt(xminus, y, z).getType() == Material.CHEST && Database.czyPojemnikJestZabezpieczony(world.getBlockAt(xminus, y, z).getLocation())) {
-				if (!Database.czyPojemnikJestGracza(e.getPlayer(), world.getBlockAt(xminus, y, z).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + "Brak dostepu.");
+			if (world.getBlockAt(xminus, y, z).getType() == Material.CHEST && Database.isContainerProtected(world.getBlockAt(xminus, y, z).getLocation())) {
+				if (!Database.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(xminus, y, z).getLocation())) {
+					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
-			if (world.getBlockAt(x, y, zminus).getType() == Material.CHEST && Database.czyPojemnikJestZabezpieczony(world.getBlockAt(x, y, zminus).getLocation())) {
-				if (!Database.czyPojemnikJestGracza(e.getPlayer(), world.getBlockAt(x, y, zminus).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + "Brak dostepu.");
+			if (world.getBlockAt(x, y, zminus).getType() == Material.CHEST && Database.isContainerProtected(world.getBlockAt(x, y, zminus).getLocation())) {
+				if (!Database.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(x, y, zminus).getLocation())) {
+					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
-			if (world.getBlockAt(x1, y, z).getType() == Material.CHEST && Database.czyPojemnikJestZabezpieczony(world.getBlockAt(x1, y, z).getLocation())) {
-				if (!Database.czyPojemnikJestGracza(e.getPlayer(), world.getBlockAt(x1, y, z).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + "Brak dostepu.");
+			if (world.getBlockAt(x1, y, z).getType() == Material.CHEST && Database.isContainerProtected(world.getBlockAt(x1, y, z).getLocation())) {
+				if (!Database.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(x1, y, z).getLocation())) {
+					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
-			if (world.getBlockAt(x, y, z1).getType() == Material.CHEST && Database.czyPojemnikJestZabezpieczony(world.getBlockAt(x, y, z1).getLocation())) {
-				if (!Database.czyPojemnikJestGracza(e.getPlayer(), world.getBlockAt(x, y, z1).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + "Brak dostepu.");
+			if (world.getBlockAt(x, y, z1).getType() == Material.CHEST && Database.isContainerProtected(world.getBlockAt(x, y, z1).getLocation())) {
+				if (!Database.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(x, y, z1).getLocation())) {
+					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
-			Database.dodajPojemnikDoDatabase(e.getPlayer(), e.getBlockPlaced().getLocation());
-			e.getPlayer().sendMessage(ChatColor.YELLOW + "Pojemnik automatycznie zabezpieczony.");
+			Database.addContainerToDB(e.getPlayer(), e.getBlockPlaced().getLocation());
+			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
 			return;
 		}
-		Database.dodajPojemnikDoDatabase(e.getPlayer(), e.getBlockPlaced().getLocation());
-		e.getPlayer().sendMessage(ChatColor.YELLOW + "Pojemnik automatycznie zabezpieczony.");
+		Database.addContainerToDB(e.getPlayer(), e.getBlockPlaced().getLocation());
+		e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
 	}
 		
 	@Override
@@ -76,14 +76,14 @@ public class Blocks extends BlockListener {
 		if (!(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE)) {
 			return;
 		}
-	    if (Database.czyPojemnikJestZabezpieczony(e.getBlock().getLocation()) ) {
-			if (Database.czyPojemnikJestGracza(e.getPlayer(), e.getBlock().getLocation()) == false) {
-				e.getPlayer().sendMessage(ChatColor.RED + "Brak dostepu.");
+	    if (Database.isContainerProtected(e.getBlock().getLocation()) ) {
+			if (Database.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation()) == false) {
+				e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 				e.setCancelled(true);
 				return;
 			}
-			Database.usunPojemnikZDatabase(e.getBlock().getLocation());
-			e.getPlayer().sendMessage(ChatColor.YELLOW + "Ochrona usunieta.");
+			Database.removeContainerFromDB(e.getBlock().getLocation());
+			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
 		}
 	}
 		
@@ -92,7 +92,7 @@ public class Blocks extends BlockListener {
 		if (!(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE)) {
 			return;
 		}
-		if (Database.czyPojemnikJestZabezpieczony(e.getBlock().getLocation())) {
+		if (Database.isContainerProtected(e.getBlock().getLocation())) {
 			e.setCancelled(true);
 		}
 	}
@@ -100,23 +100,23 @@ public class Blocks extends BlockListener {
 	@Override
 	public void onBlockDamage(BlockDamageEvent e) {
 		if (e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE) {
-			if (Database.czyPojemnikJestZabezpieczony(e.getBlock().getLocation())) {
-				if (Database.czyPojemnikJestGracza(e.getPlayer(), e.getBlock().getLocation())) {
-					if (ostatnioklik.get(e.getPlayer().getName()) != null) {
-					    ostatnioklik.remove(e.getPlayer().getName());
+			if (Database.isContainerProtected(e.getBlock().getLocation())) {
+				if (Database.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation())) {
+					if (lastClicked.get(e.getPlayer().getName()) != null) {
+						lastClicked.remove(e.getPlayer().getName());
 				    }
-					ostatnioklik.put(e.getPlayer().getName(), e.getBlock().getLocation());
+					lastClicked.put(e.getPlayer().getName(), e.getBlock().getLocation());
 				}
 				else {
-					e.getPlayer().sendMessage(ChatColor.RED + "Nie twój pojemnik.");
+					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 					e.setCancelled(true);
 				}
 			}
 			else {
-				if (ostatnioklik.get(e.getPlayer().getName()) != null) {
-				    ostatnioklik.remove(e.getPlayer().getName());
+				if (lastClicked.get(e.getPlayer().getName()) != null) {
+					lastClicked.remove(e.getPlayer().getName());
 			    }
-				ostatnioklik.put(e.getPlayer().getName(), e.getBlock().getLocation());
+				lastClicked.put(e.getPlayer().getName(), e.getBlock().getLocation());
 			}
 		}
 		else {
