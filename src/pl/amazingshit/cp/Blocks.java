@@ -1,4 +1,4 @@
-package lols;
+package pl.amazingshit.cp;
 
 import java.util.HashMap;
 
@@ -8,13 +8,12 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockChangeEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-public class blokiXD extends BlockListener {
+public class Blocks extends BlockListener {
 	//                    gracz   skrzynka
 	public static HashMap<String, Location> ostatnioklik = new HashMap<String, Location>();
 	

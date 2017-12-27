@@ -1,4 +1,4 @@
-package lols;
+package pl.amazingshit.cp;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,14 +31,14 @@ public class ChestProtection extends JavaPlugin {
 		Bukkit.getServer().getLogger().info("ChestProtection enabled");
 		
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvent(Type.BLOCK_IGNITE,    new blokiXD(),  Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_PLACE,     new blokiXD(),  Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_BREAK,     new blokiXD(),  Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_DAMAGE,    new blokiXD(),  Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
 		
-		pm.registerEvent(Type.ENTITY_EXPLODE,  new tienti(),   Priority.Normal, this);
+		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal, this);
 		
-		pm.registerEvent(Type.PLAYER_INTERACT, new lystener(), Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
 	}
 	
 	@Override
@@ -56,8 +56,8 @@ public class ChestProtection extends JavaPlugin {
 			}
 			Player p = (Player)sender;
 			if (args[0].equalsIgnoreCase("usun")) {
-				if (blokiXD.ostatnioklik.get(p.getName()) != null) {
-					Location toRemove = blokiXD.ostatnioklik.get(p.getName());
+				if (Blocks.ostatnioklik.get(p.getName()) != null) {
+					Location toRemove = Blocks.ostatnioklik.get(p.getName());
 					
 					Database.usunPojemnikZDatabase(toRemove);
 					
@@ -70,8 +70,8 @@ public class ChestProtection extends JavaPlugin {
 			}
 			
 			if (args[0].equalsIgnoreCase("dodaj")) {
-				if (blokiXD.ostatnioklik.get(p.getName()) != null) {
-					Location toAdd = blokiXD.ostatnioklik.get(p.getName());
+				if (Blocks.ostatnioklik.get(p.getName()) != null) {
+					Location toAdd = Blocks.ostatnioklik.get(p.getName());
 					
 					Database.dodajPojemnikDoDatabase(p, toAdd);
 					

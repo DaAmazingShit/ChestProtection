@@ -1,6 +1,6 @@
 name: ChestProtection
-version: 1.0.1
-main: lols.ChestProtection
+version: 1.0.2
+main: pl.amazingshit.ChestProtection
 author: DaAmazingShit
 commands:
     ochrona:

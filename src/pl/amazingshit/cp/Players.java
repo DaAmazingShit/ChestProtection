@@ -1,4 +1,4 @@
-package lols;
+package pl.amazingshit.cp;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -7,7 +7,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
-public class lystener extends PlayerListener {
+public class Players extends PlayerListener {
 	
 	@Override
 	public void onPlayerInteract(PlayerInteractEvent e) {

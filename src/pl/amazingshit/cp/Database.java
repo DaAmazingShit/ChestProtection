@@ -1,4 +1,4 @@
-package lols;
+package pl.amazingshit.cp;
 
 import java.io.File;
 import java.util.LinkedList;

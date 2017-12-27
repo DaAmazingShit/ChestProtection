@@ -1,11 +1,11 @@
-package lols;
+package pl.amazingshit.cp;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
 
-public class tienti extends EntityListener {
+public class Explosions extends EntityListener {
 	
     public void onEntityExplode(EntityExplodeEvent event)
 	{
