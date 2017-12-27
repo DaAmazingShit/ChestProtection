@@ -1,6 +1,6 @@
 name: ChestProtection
 version: 1.0.2
-main: pl.amazingshit.ChestProtection
+main: pl.amazingshit.cp.ChestProtection
 author: DaAmazingShit
 commands:
     ochrona:
