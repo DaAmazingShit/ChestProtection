@@ -32,7 +32,6 @@ public class ChestProtection extends JavaPlugin {
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Type.BLOCK_IGNITE,    new blokiXD(),  Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_CHANGE,    new blokiXD(),  Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_PLACE,     new blokiXD(),  Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_BREAK,     new blokiXD(),  Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_DAMAGE,    new blokiXD(),  Priority.Normal, this);

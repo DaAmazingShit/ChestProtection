@@ -99,16 +99,6 @@ public class blokiXD extends BlockListener {
 	}
 		
 	@Override
-	public void onBlockChange(BlockChangeEvent e) {
-		if (!(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE)) {
-			return;
-		}
-		if (Database.czyPojemnikJestZabezpieczony(e.getBlock().getLocation())) {
-			e.setCancelled(true);
-		}
-	}
-		
-	@Override
 	public void onBlockDamage(BlockDamageEvent e) {
 		if (e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE) {
 			if (Database.czyPojemnikJestZabezpieczony(e.getBlock().getLocation())) {
