@@ -9,7 +9,8 @@ import org.bukkit.event.player.PlayerListener;
 
 public class lystener extends PlayerListener {
 	
-	@Override public void onPlayerInteract(PlayerInteractEvent e) {
+	@Override
+	public void onPlayerInteract(PlayerInteractEvent e) {
 		// to jes kiedy gracz zaznacza
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
 			return;
