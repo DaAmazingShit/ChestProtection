@@ -36,7 +36,7 @@ public class Lang {
 				// We don't actually need this annotation
 			}
 			config.setProperty("lang.custom", "off");
-			
+			config.save();
 			this.Default();
 		}
 		if (((String) config.getProperty("lang.custom")).equalsIgnoreCase("off")) {
