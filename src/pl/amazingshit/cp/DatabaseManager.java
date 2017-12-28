@@ -237,10 +237,10 @@ public class DatabaseManager {
     }
 	
     /**
-     * Returns the string from Location in a format that configuration stores the location of protection.
+     * Returns the database location format.
      * 
      * @param loc location
-     * @return configuration location format
+     * @return database location format
      */
 	public static String toString(Location loc) {
 		String world = loc.getWorld().getName();
