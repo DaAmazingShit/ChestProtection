@@ -5,9 +5,14 @@ import java.io.File;
 import java.io.FileWriter;
 import org.bukkit.util.config.Configuration;
 
-public class Lang {
+/**
+ * Manages language files.
+ * @author DaAmazingShit
+ *
+ */
+public class LanguageManager {
 	
-	public Lang() {}
+	public LanguageManager() {}
 	
 	private Configuration config        = null;
 	private Configuration langSource    = null;

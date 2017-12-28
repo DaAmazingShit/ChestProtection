@@ -15,7 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;
-	public static Lang lang;
+	public static LanguageManager lang;
 	
 	@Override
 	public void onDisable() {
@@ -24,7 +24,7 @@ public class ChestProtection extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		lang = new Lang();
+		lang = new LanguageManager();
 		instance = this;
 		if (!DatabaseManager.databaseExists()) {
 			DatabaseManager.createDatabase();
