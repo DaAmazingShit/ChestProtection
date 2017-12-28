@@ -40,7 +40,6 @@ public class DatabaseManager {
 		}
 	}
 	
-	// TODO Separate Player from this method.
 	/**
 	 * Tries to add container with player to database.
 	 * If operation wasn't successful or player already assigned to container it will return false.
