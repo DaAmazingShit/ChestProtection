@@ -237,7 +237,7 @@ public class DatabaseManager {
     }
 	
     /**
-     * Returns the database location format.
+     * Returns database location format.
      * 
      * @param loc location
      * @return database location format
