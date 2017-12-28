@@ -105,7 +105,7 @@ public class Database {
 	}
 	
 	/**
-	 * Tries to deny player from accessing the container. If operation was successful it will return true;
+	 * Tries to deny player from accessing the container. If operation was successful it will return true.
 	 * 
 	 * @param p player
 	 * @param loc location
@@ -176,20 +176,28 @@ public class Database {
 	}
 	
 	/**
-	 * This method creates default database for saving protected blocks.
+	 * This method tries to create default database for saving protected blocks.
+	 * If operation was successful it will return true.
 	 * 
+	 * @return was operation successful
 	 */
-    public static void createDatabase() {
-    	config.load();
-    	config.setHeader(
-    			"# Info:",
-    			"#     Author: DaAmazingShit",
-    			"#     Contact:",
-    			"#     - Github:  DaAmazingShit",
-    			"#     - e-mail:  da.amazing.shit@interia.pl"
-    			);
-    	config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
-    	config.save();
+    public static Boolean createDatabase() {
+    	try {
+        	config.load();
+        	config.setHeader(
+        			"# Info:",
+        			"#     Author: DaAmazingShit",
+        			"#     Contact:",
+        			"#     - Github:  DaAmazingShit",
+        			"#     - e-mail:  da.amazing.shit@interia.pl"
+        			);
+        	config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
+        	config.save();
+        	return true;
+    	}
+    	catch (Exception ex) {
+    		return false;
+    	}
     }
     
     /**
