@@ -15,7 +15,6 @@ public class Lang {
 	public String noAccess              = null;
 	public String protectionAdded       = null;
 	public String protectionRemoved     = null;
-	public String protectionCommand     = null;
 	public String protectionArgRemove   = null;
 	public String protectionArgAdd      = null;
 	public String containerNotSelected  = null;
@@ -50,6 +49,7 @@ public class Lang {
 		File file = new File("plugins/ChestProtection", (String) config.getProperty("lang.custom"));
 		if (file.exists()) {
 			langSource = new Configuration(file);
+			langSource.load();
 			String main = "strings.";
 			if (langSource.getProperty(main + ".no_access") == null || langSource.getProperty(main + ".protection_added") == null || 
 					langSource.getProperty(main + ".protection_removed") == null|| langSource.getProperty(main + ".command_remove") == null||
@@ -57,7 +57,7 @@ public class Lang {
 					langSource.getProperty(main + ".publicied") == null || langSource.getProperty(main + ".privated") == null ||
 					langSource.getProperty(main + ".container_not_selected") == null || langSource.getProperty(main + ".help_add") == null ||
 					langSource.getProperty(main + ".help_remove") == null) {
-				// TODO Automatically create a fresh language file
+				this.createLangFile(file);
 			}
 			
 			this.noAccess             = langSource.getString(main + ".no_access", this.noAccess);
@@ -75,11 +75,25 @@ public class Lang {
 		this.noAccess             = "You cannot access this container.";
 		this.protectionAdded      = "Added protection to your container.";
 		this.protectionRemoved    = "Removed protection from your container.";
-		this.protectionCommand    = "cp";
 		this.protectionArgRemove  = "remove";
 		this.protectionArgAdd     = "add";
 		this.containerNotSelected = "You haven't selected a container.";
 		this.helpAdd              = "/cp add    - Adds protection to left-clicked container";
 		this.helpRemove           = "/cp remove - Removes protection from left-clicked container";
+	}
+	
+	private void createLangFile(File file) {
+		String main = "strings.";
+		langSource = new Configuration(file);
+		langSource.load();
+		langSource.setProperty(main + ".no_access", "You cannot access this container.");
+		langSource.setProperty(main + ".protection_added", "Added protection to your container.");
+		langSource.setProperty(main + ".protection_removed", "Removed protection from your container.");
+		langSource.setProperty(main + ".command_remove", "remove");
+		langSource.setProperty(main + ".command_add", "add");
+		langSource.setProperty(main + ".container_not_selected", "You haven't selected a container.");
+		langSource.setProperty(main + ".help_add", "/cp add      - Adds protection to left-clicked container");
+		langSource.setProperty(main + ".help_remove", "/cp remove - Removes protection from left-clicked container");
+		langSource.save();
 	}
 }
