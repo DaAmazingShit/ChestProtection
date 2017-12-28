@@ -26,8 +26,8 @@ public class ChestProtection extends JavaPlugin {
 	public void onEnable() {
 		lang = new Lang();
 		instance = this;
-		if (!Database.databaseExists()) {
-			Database.createDatabase();
+		if (!DatabaseManager.databaseExists()) {
+			DatabaseManager.createDatabase();
 		}
 		lang.setup();
 		
@@ -62,7 +62,7 @@ public class ChestProtection extends JavaPlugin {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location toRemove = Blocks.lastClicked.get(p.getName());
 					
-					Database.removeContainerFromDB(toRemove);
+					DatabaseManager.removeContainerFromDB(toRemove);
 					
 					p.sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
 					return true;
@@ -76,7 +76,7 @@ public class ChestProtection extends JavaPlugin {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location toAdd = Blocks.lastClicked.get(p.getName());
 					
-					Database.addContainerToDB(p, toAdd);
+					DatabaseManager.addContainerToDB(p, toAdd);
 					
 					p.sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
 					return true;

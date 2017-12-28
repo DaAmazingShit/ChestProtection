@@ -12,10 +12,14 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
 
-public class Database {
+/**
+ * Represents a database
+ * @author DaAmazingShit
+ *
+ */
+public class DatabaseManager {
 	
 	public static Configuration config = new Configuration(new File("plugins/ChestProtection", "database.yml"));
-	// TODO check Javadocs grammar
 	
 	/**
 	 * Returns true if player owns container at an location.

@@ -18,8 +18,8 @@ public class Players extends PlayerListener {
 		if (!(e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.FURNACE || e.getClickedBlock().getType() == Material.DISPENSER || e.getClickedBlock().getType() == Material.JUKEBOX)) {
 			return;
 		}
-		if (Database.isContainerProtected(block.getLocation())) {
-		    if (Database.doesPlayerOwnContainer(e.getPlayer(), block.getLocation())) {
+		if (DatabaseManager.isContainerProtected(block.getLocation())) {
+		    if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), block.getLocation())) {
 			    return;
 		    }
 		    
