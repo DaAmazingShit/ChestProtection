@@ -1,4 +1,4 @@
-package pl.amazingshit.cp;
+package pl.amazingshit.cp.managers;
 
 import java.io.File;
 

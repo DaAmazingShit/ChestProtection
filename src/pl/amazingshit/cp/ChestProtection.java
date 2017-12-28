@@ -18,6 +18,9 @@ import org.bukkit.util.config.Configuration;
 import pl.amazingshit.cp.listeners.Blocks;
 import pl.amazingshit.cp.listeners.Explosions;
 import pl.amazingshit.cp.listeners.Players;
+import pl.amazingshit.cp.managers.DatabaseManager;
+import pl.amazingshit.cp.managers.LanguageManager;
+import pl.amazingshit.cp.util.Operation;
 
 public class ChestProtection extends JavaPlugin {
 	

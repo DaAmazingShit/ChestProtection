@@ -5,7 +5,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
 
-import pl.amazingshit.cp.DatabaseManager;
+import pl.amazingshit.cp.managers.DatabaseManager;
 
 public class Explosions extends EntityListener {
 	

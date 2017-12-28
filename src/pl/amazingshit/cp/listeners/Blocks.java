@@ -14,7 +14,7 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import pl.amazingshit.cp.ChestProtection;
-import pl.amazingshit.cp.DatabaseManager;
+import pl.amazingshit.cp.managers.DatabaseManager;
 
 public class Blocks extends BlockListener {
 	//                    player  container

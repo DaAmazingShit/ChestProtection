@@ -1,4 +1,4 @@
-package pl.amazingshit.cp;
+package pl.amazingshit.cp.managers;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -12,6 +12,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
 
+import pl.amazingshit.cp.ChestProtection;
+import pl.amazingshit.cp.util.Operation;
 import pl.amazingshit.cp.util.cp;
 /**
  * Represents a database

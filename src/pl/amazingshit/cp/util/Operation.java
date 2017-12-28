@@ -1,4 +1,4 @@
-package pl.amazingshit.cp;
+package pl.amazingshit.cp.util;
 /**
  * Represents operation result
  * @author DaAmazingShit
