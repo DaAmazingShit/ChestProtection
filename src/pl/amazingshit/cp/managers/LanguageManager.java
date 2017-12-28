@@ -74,6 +74,7 @@ public class LanguageManager {
 			this.removeFromContainerArg = langSource.getString(main + ".command_removeplayer", this.removeFromContainerArg);
 		}
 		else {
+			// TODO fix null error on first start
 			this.createLangFile(file);
 		}
 	}
