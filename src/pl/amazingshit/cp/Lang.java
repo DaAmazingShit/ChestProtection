@@ -22,6 +22,10 @@ public class Lang {
 	public String helpAdd               = null;
 	public String helpRemove            = null;
 	
+	/**
+	 * Reloads language files or setups them
+	 * 
+	 */
 	public void setup() {
 		File langFile = new File("plugins/ChestProtection", "lang.yml");
 		config = new Configuration(langFile);
@@ -31,6 +35,7 @@ public class Lang {
 			try {
 				out = new BufferedWriter(new FileWriter("plugins/ChestProtection/lang.yml", true));
 			    out.write("# You can select your custom lang.yml file which will be used to display custom messages in the game (if you have one)");
+			    out.newLine();
 			    out.close();
 			} catch (Exception ex) {
 				// We don't actually need this annotation
