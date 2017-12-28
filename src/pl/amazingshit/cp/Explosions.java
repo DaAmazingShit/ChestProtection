@@ -14,6 +14,9 @@ public class Explosions extends EntityListener {
     	int count = event.blockList().size();
     	for (int x = 0; x < count; x++) {
 	        Block block = (Block)event.blockList().get(x);
+	        if (!Database.isContainerProtected(block.getLocation())) {
+	        	return;
+	        }
 	        if (block.getTypeId() == Material.CHEST.getId() || block.getTypeId() == Material.DISPENSER.getId() || 
 	            block.getTypeId() == Material.FURNACE.getId() || block.getTypeId() == Material.BURNING_FURNACE.getId() ||
 	            block.getTypeId() == Material.JUKEBOX.getId()) {
