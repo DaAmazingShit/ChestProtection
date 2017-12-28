@@ -189,7 +189,8 @@ public class Database {
         			"#     Author: DaAmazingShit",
         			"#     Contact:",
         			"#     - Github:  DaAmazingShit",
-        			"#     - e-mail:  da.amazing.shit@interia.pl"
+        			"#     - e-mail:  da.amazing.shit@interia.pl",
+        			"# Warning! ChestProtection becomes weird while using it in spawn-protection region"
         			);
         	config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
         	config.save();
