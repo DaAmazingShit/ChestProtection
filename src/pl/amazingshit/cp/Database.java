@@ -43,7 +43,7 @@ public class Database {
 	 * 
 	 * @param p player
 	 * @param loc location
-	 * @return was operation successful
+	 * @return operation successful
 	 */
 	public static Boolean addContainerToDB(Player p, Location loc) {
 		try {
@@ -68,7 +68,7 @@ public class Database {
 	 * Simple method, tries to return block from location. If operation wasn't successful it will return null.
 	 * 
 	 * @param loc location
-	 * @return block
+	 * @return block or null
 	 */
 	public static Block getBlockFromLocation(Location loc) {
 		try {
@@ -89,7 +89,7 @@ public class Database {
 	 * Tries to remove container from database. If operation was successful it will return true.
 	 * 
 	 * @param loc location
-	 * @return was operation successful
+	 * @return operation successful
 	 */
 	public static Boolean removeContainerFromDB(Location loc) {
 		try {
@@ -109,7 +109,7 @@ public class Database {
 	 * 
 	 * @param p player
 	 * @param loc location
-	 * @return was operation successful
+	 * @return operation successful
 	 */
 	public static Boolean removePlayerFromContainer(Player p, Location loc) {
 		try {
@@ -179,7 +179,7 @@ public class Database {
 	 * This method tries to create default database for saving protected blocks.
 	 * If operation was successful it will return true.
 	 * 
-	 * @return was operation successful
+	 * @return operation successful
 	 */
     public static Boolean createDatabase() {
     	try {
