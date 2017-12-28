@@ -15,6 +15,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
 
+import pl.amazingshit.cp.listeners.Blocks;
+import pl.amazingshit.cp.listeners.Explosions;
+import pl.amazingshit.cp.listeners.Players;
+
 public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;

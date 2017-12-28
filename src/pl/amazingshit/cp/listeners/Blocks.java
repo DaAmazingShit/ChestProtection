@@ -1,4 +1,4 @@
-package pl.amazingshit.cp;
+package pl.amazingshit.cp.listeners;
 
 import java.util.HashMap;
 
@@ -12,6 +12,9 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
+
+import pl.amazingshit.cp.ChestProtection;
+import pl.amazingshit.cp.DatabaseManager;
 
 public class Blocks extends BlockListener {
 	//                    player  container

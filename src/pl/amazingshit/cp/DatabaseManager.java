@@ -12,10 +12,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
 
+import pl.amazingshit.cp.util.cp;
 /**
  * Represents a database
  * @author DaAmazingShit
- *
  */
 public class DatabaseManager {
 	

@@ -5,11 +5,9 @@ import java.io.File;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
-
 /**
  * Manages language files.
  * @author DaAmazingShit
- *
  */
 public class LanguageManager {
 	
