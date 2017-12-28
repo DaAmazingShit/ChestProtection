@@ -1,0 +1,13 @@
+strings:
+    no_access: 'Brak dostepu.'
+    protection_removed: 'Pojemnik juz nie jest chroniony.'
+    protection_added: 'Pojemnik jest teraz chroniony.'
+    command_remove: 'usun'
+    command_addplayer: dodajgracza
+    command_removeplayer: usungracza
+    command_add: 'dodaj'
+    container_not_selected: 'Nie zaznaczyles pojemnika!'
+    help_add: ' dodaj - Dodaje ochrone do wczesniej zaznaczonego pojemnika (LPM)'
+    help_remove: ' usun - Usuwa ochrone z wczesniej zaznaczonego pojemnika (LPM)'
+    help_addplayer: ' dodajgracza <gracz> - Umozliwa graczowi dostep do pojemnika'
+    help_removeplayer: ' usungracza <gracz> - Blokuje dostep dla gracza do pojemnika'
