@@ -180,15 +180,15 @@ public class DatabaseManager {
 	}
 	
 	/**
-	 * This method tries to create default database for saving protected blocks.
+	 * This method tries to create default configuration.
 	 * If operation was successful it will return true.
 	 * 
 	 * @return operation successful
 	 */
-    public static Boolean createDatabase() {
+    public static Boolean createConfig() {
     	try {
-        	config.load();
-        	config.setHeader(
+        	ChestProtection.config.load();
+        	ChestProtection.config.setHeader(
         			"# Info:",
         			"#     Author: DaAmazingShit",
         			"#     Contact:",
@@ -196,8 +196,8 @@ public class DatabaseManager {
         			"#     - e-mail:  da.amazing.shit@interia.pl",
         			"# Warning! ChestProtection becomes weird while using it in spawn-protection region"
         			);
-        	config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
-        	config.save();
+        	ChestProtection.config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
+        	ChestProtection.config.save();
         	return true;
     	}
     	catch (Exception ex) {
@@ -212,7 +212,22 @@ public class DatabaseManager {
      */
     public static Boolean databaseExists() {
     	config.load();
-    	if (config.getProperty("version") == null) {
+    	if (config.getKeys().isEmpty()) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+    
+    /**
+     * Do configuration exists? If no it will return false.
+     * 
+     * @return database exists
+     */
+    public static Boolean configExists() {
+    	ChestProtection.config.load();
+    	if (ChestProtection.config.getKeys().isEmpty()) {
     		return false;
     	}
     	else {

@@ -31,8 +31,8 @@ public class ChestProtection extends JavaPlugin {
 		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
 		lang   = new LanguageManager();
 		instance = this;
-		if (!DatabaseManager.databaseExists()) {
-			DatabaseManager.createDatabase();
+		if (!DatabaseManager.configExists()) {
+			DatabaseManager.createConfig();
 		}
 		lang.setup();
 		
