@@ -23,7 +23,7 @@ public class Players extends PlayerListener {
 			    return;
 		    }
 		    
-			e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+			e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 			e.setCancelled(true);
 		}
 	}

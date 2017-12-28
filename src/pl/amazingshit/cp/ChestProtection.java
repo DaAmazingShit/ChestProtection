@@ -56,14 +56,12 @@ public class ChestProtection extends JavaPlugin {
 		if (!(sender instanceof Player)) {
 			return true;
 		}
-		
+		Player p = (Player)sender;
 		if (cmd.getName().equalsIgnoreCase("cp")) {
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.RED + "/" + string + lang.helpAdd);
-				sender.sendMessage(ChatColor.RED + "/" + string + lang.helpRemove);
+				lang.displayHelp(string, p);
 				return true;
 			}
-			Player p = (Player)sender;
 			if (args[0].equalsIgnoreCase(lang.protectionArgRemove)) {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location toRemove = Blocks.lastClicked.get(p.getName());
@@ -88,6 +86,64 @@ public class ChestProtection extends JavaPlugin {
 					return true;
 				} else {
 					p.sendMessage(ChatColor.RED + ChestProtection.lang.containerNotSelected);
+					return true;
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase(lang.assignToContainerArg)) {
+				if (args.length == 1) {
+					lang.displayHelp(string, p);
+					return true;
+				}
+				if (Blocks.lastClicked.get(p.getName()) != null) {
+					Location lc = Blocks.lastClicked.get(p.getName());
+					String player = args[1];
+					Operation op = DatabaseManager.addPlayerToContainer(player, lc);
+					if (op == Operation.SUCCESS) {
+						p.sendMessage(ChatColor.GREEN + "Successfully removed player from your container!");
+					}
+					if (op == Operation.ALREADY_EXISTS) {
+						p.sendMessage(ChatColor.RED + "A player is already assigned to this container!");
+					}
+					if (op == Operation.NOT_PROTECTED) {
+						p.sendMessage(ChatColor.RED + "This container is not protected.");
+					}
+					if (op == Operation.FAIL) {
+						p.sendMessage(ChatColor.RED + "Something went wrong!");
+					}
+					return true;
+				}
+				else {
+					p.sendMessage(ChatColor.RED + lang.containerNotSelected);
+					return true;
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase(lang.removeFromContainerArg)) {
+				if (args.length == 1) {
+					lang.displayHelp(string, p);
+					return true;
+				}
+				if (Blocks.lastClicked.get(p.getName()) != null) {
+					Location lc = Blocks.lastClicked.get(p.getName());
+					String player = args[1];
+					Operation op = DatabaseManager.removePlayerFromContainer(player, lc);
+					if (op == Operation.SUCCESS) {
+						p.sendMessage(ChatColor.GREEN + "Successfully added player to your container!");
+					}
+					if (op == Operation.NOT_IN_LIST) {
+						p.sendMessage(ChatColor.RED + "This player is not assigned to your container!");
+					}
+					if (op == Operation.NOT_PROTECTED) {
+						p.sendMessage(ChatColor.RED + "This container is not protected.");
+					}
+					if (op == Operation.FAIL) {
+						p.sendMessage(ChatColor.RED + "Something went wrong!");
+					}
+					return true;
+				}
+				else {
+					p.sendMessage(ChatColor.RED + lang.containerNotSelected);
 					return true;
 				}
 			}

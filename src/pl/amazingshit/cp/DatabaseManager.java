@@ -68,6 +68,40 @@ public class DatabaseManager {
 	}
 	
 	/**
+	 * Tries to add player to container.
+	 * 
+	 * @param p playername
+	 * @param loc location
+	 * @return operation
+	 */
+	public static Operation addPlayerToContainer(String p, Location loc) {
+		try {
+			config.load();
+			if (config.getProperty(toString(loc)) != null) {
+				
+				List<String> players = new LinkedList<String>();
+				players = config.getStringList(toString(loc), players);
+				if (players.isEmpty()) {
+					return Operation.NOT_PROTECTED;
+				}
+				if (players.contains(p)) {
+					return Operation.ALREADY_EXISTS;
+				}
+				players.add(p);
+				config.setProperty(toString(loc), players);
+				config.save();
+				return Operation.SUCCESS;
+			}
+			else {
+				return Operation.NOT_PROTECTED;
+			}
+		}
+		catch (Exception ex) {
+			return Operation.FAIL;
+		}
+	}
+	
+	/**
 	 * Simple method, tries to return block from location. If operation wasn't successful it will return null.
 	 * 
 	 * @param loc location
@@ -108,25 +142,30 @@ public class DatabaseManager {
 	}
 	
 	/**
-	 * Tries to deny player from accessing the container. If operation was successful it will return true.
+	 * Tries to deny player from accessing the container.
 	 * 
 	 * @param p player
 	 * @param loc location
-	 * @return operation successful
+	 * @return operation
 	 */
-	public static Boolean removePlayerFromContainer(Player p, Location loc) {
+	public static Operation removePlayerFromContainer(String p, Location loc) {
 		try {
 			config.load();
 			List<String> players = new LinkedList<String>();
 			players = config.getStringList(toString(loc), players);
-			players.remove(p.getName());
+			if (players.isEmpty()) {
+				return Operation.NOT_PROTECTED;
+			}
+			if (!players.contains(p)) {
+				return Operation.NOT_IN_LIST;
+			}
+			players.remove(p);
 			config.setProperty(toString(loc), players);
 			config.save();
-			config.load();
-			return true;
+			return Operation.SUCCESS;
 		}
 		catch (Exception ex) {
-			return false;
+			return Operation.FAIL;
 		}
 	}
 	
