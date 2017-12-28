@@ -21,6 +21,7 @@ import pl.amazingshit.cp.util.cp;
  */
 public class DatabaseManager {
 	
+	// TODO Replace all Boolean with Operation
 	public static Configuration config = new Configuration(new File("plugins/ChestProtection", "database.yml"));
 	
 	/**

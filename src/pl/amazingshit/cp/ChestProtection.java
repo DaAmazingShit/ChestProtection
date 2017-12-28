@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
@@ -28,6 +29,8 @@ public class ChestProtection extends JavaPlugin {
 	public static LanguageManager lang;
 	public static Configuration config;
 	public static String prefix = "[ChestProtection] ";
+	private static Double serverversion;
+	public static CraftServer server;
 	
 	@Override
 	public void onDisable() {
@@ -36,6 +39,8 @@ public class ChestProtection extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		server = (CraftServer)this.getServer();
+		serverversion = Double.parseDouble(server.protocolVersion);
 		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
 		lang   = new LanguageManager();
 		instance = this;
@@ -44,21 +49,27 @@ public class ChestProtection extends JavaPlugin {
 		}
 		lang.setup();
 		
-		Bukkit.getServer().getLogger().info("ChestProtection enabled");
+		this.getServer().getLogger().info("ChestProtection enabled");
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
+		if (serverversion >= 1.3_01) {
+			pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
+			pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
+			pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
+		}
+		if (serverversion <= 1.3_01) {
+			pm.registerEvent(Type.BLOCK_PLACED,        new Blocks(), Priority.Normal, this);
+			pm.registerEvent(Type.BLOCK_DAMAGED,       new Blocks(), Priority.Normal, this);
+			pm.registerEvent(Type.BLOCK_RIGHTCLICKED, new Blocks(), Priority.Normal, this);
+		}
 		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
 		
 		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal, this);
-		
-		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String cmdalias, String[] args) {
 		
 		if (!(sender instanceof Player)) {
 			return true;
@@ -66,7 +77,7 @@ public class ChestProtection extends JavaPlugin {
 		Player p = (Player)sender;
 		if (cmd.getName().equalsIgnoreCase("cp")) {
 			if (args.length == 0) {
-				lang.displayHelp(string, p);
+				lang.displayHelp(cmdalias, p);
 				return true;
 			}
 			if (args[0].equalsIgnoreCase(lang.protectionArgRemove)) {
@@ -99,7 +110,7 @@ public class ChestProtection extends JavaPlugin {
 			
 			if (args[0].equalsIgnoreCase(lang.assignToContainerArg)) {
 				if (args.length == 1) {
-					lang.displayHelp(string, p);
+					lang.displayHelp(cmdalias, p);
 					return true;
 				}
 				if (Blocks.lastClicked.get(p.getName()) != null) {
@@ -128,7 +139,7 @@ public class ChestProtection extends JavaPlugin {
 			
 			if (args[0].equalsIgnoreCase(lang.removeFromContainerArg)) {
 				if (args.length == 1) {
-					lang.displayHelp(string, p);
+					lang.displayHelp(cmdalias, p);
 					return true;
 				}
 				if (Blocks.lastClicked.get(p.getName()) != null) {
@@ -153,6 +164,9 @@ public class ChestProtection extends JavaPlugin {
 					p.sendMessage(ChatColor.RED + lang.containerNotSelected);
 					return true;
 				}
+			}
+			else {
+				lang.displayHelp(cmdalias, p);
 			}
 		}
 		return true;
