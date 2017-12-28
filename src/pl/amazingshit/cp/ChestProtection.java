@@ -20,6 +20,7 @@ public class ChestProtection extends JavaPlugin {
 	public static Plugin instance;
 	public static LanguageManager lang;
 	public static Configuration config;
+	public static String prefix = "[ChestProtection] ";
 	
 	@Override
 	public void onDisable() {
@@ -58,8 +59,8 @@ public class ChestProtection extends JavaPlugin {
 		
 		if (cmd.getName().equalsIgnoreCase("cp")) {
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.RED + string + lang.helpAdd);
-				sender.sendMessage(ChatColor.RED + string + lang.helpRemove);
+				sender.sendMessage(ChatColor.RED + "/" + string + lang.helpAdd);
+				sender.sendMessage(ChatColor.RED + "/" + string + lang.helpRemove);
 				return true;
 			}
 			Player p = (Player)sender;

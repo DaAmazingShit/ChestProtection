@@ -1,8 +1,6 @@
 package pl.amazingshit.cp;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import org.bukkit.util.config.Configuration;
 
 /**
@@ -35,31 +33,25 @@ public class LanguageManager {
 		config = new Configuration(langFile);
 		config.load();
 		if (config.getProperty("lang.custom") == null) {
-		    BufferedWriter out;
-			try {
-				out = new BufferedWriter(new FileWriter("plugins/ChestProtection/lang.yml", true));
-			    out.write("# You can select your custom lang.yml file which will be used to display custom messages in the game (if you have one)");
-			    out.newLine();
-			    out.close();
-			} catch (Exception ex) {
-				// We don't actually need this annotation
-			}
-			config.setProperty("lang.custom", "off");
+			config.setHeader("# You can select your custom lang.yml file which will be used to display custom messages in the game (if you have one)");
+			config.setProperty("lang.custom", null);
 			config.save();
 			this.Default();
 		}
-		if (((String) config.getProperty("lang.custom")).equalsIgnoreCase("off")) {
+		String isOff = null;
+		isOff = config.getString("lang.custom", isOff);
+		if (isOff == null) {
 			this.Default();
+			return;
 		}
-		File file = new File("plugins/ChestProtection", (String) config.getProperty("lang.custom"));
+		String custom = null;
+		custom = config.getString("lang.custom", custom);
+		File file = new File("plugins/ChestProtection", custom);
 		if (file.exists()) {
 			langSource = new Configuration(file);
 			langSource.load();
-			String main = "strings.";
-			if (langSource.getProperty(main + ".no_access") == null || langSource.getProperty(main + ".protection_added") == null || 
-					langSource.getProperty(main + ".protection_removed") == null|| langSource.getProperty(main + ".command_remove") == null||
-					langSource.getProperty(main + ".command_add") == null || langSource.getProperty(main + ".container_not_selected") == null || 
-					langSource.getProperty(main + ".help_add") == null || langSource.getProperty(main + ".help_remove") == null) {
+			String main = "strings";
+			if (langSource.getProperty(main) == null) {
 				this.createLangFile(file);
 			}
 			
@@ -72,12 +64,15 @@ public class LanguageManager {
 			this.helpAdd              = langSource.getString(main + ".help_add", this.helpAdd);
 			this.helpRemove           = langSource.getString(main + ".help_remove", this.helpRemove);
 		}
+		else {
+			this.createLangFile(file);
+		}
 	}
 	
 	private void Default() {
 		this.noAccess             = "You cannot access this container.";
-		this.protectionAdded      = "Added protection to your container.";
-		this.protectionRemoved    = "Removed protection from your container.";
+		this.protectionAdded      = "This container is now protected.";
+		this.protectionRemoved    = "This container is no longer protected.";
 		this.protectionArgRemove  = "remove";
 		this.protectionArgAdd     = "add";
 		this.containerNotSelected = "You haven't selected a container.";
@@ -86,17 +81,18 @@ public class LanguageManager {
 	}
 	
 	private void createLangFile(File file) {
-		String main = "strings.";
-		langSource = new Configuration(file);
-		langSource.load();
-		langSource.setProperty(main + ".no_access", "You cannot access this container.");
-		langSource.setProperty(main + ".protection_added", "Added protection to your container.");
-		langSource.setProperty(main + ".protection_removed", "Removed protection from your container.");
-		langSource.setProperty(main + ".command_remove", "remove");
-		langSource.setProperty(main + ".command_add", "add");
-		langSource.setProperty(main + ".container_not_selected", "You haven't selected a container.");
-		langSource.setProperty(main + ".help_add", " add      - Adds protection to left-clicked container");
-		langSource.setProperty(main + ".help_remove", " remove - Removes protection from left-clicked container");
-		langSource.save();
+		String main = "strings";
+		Configuration use;
+		use = new Configuration(file);
+		use.load();
+		use.setProperty(main + ".no_access", "You cannot access this container.");
+		use.setProperty(main + ".protection_added", "Added protection to your container.");
+		use.setProperty(main + ".protection_removed", "Removed protection from your container.");
+		use.setProperty(main + ".command_remove", "remove");
+		use.setProperty(main + ".command_add", "add");
+		use.setProperty(main + ".container_not_selected", "You haven't selected a container.");
+		use.setProperty(main + ".help_add", " add      - Adds protection to left-clicked container");
+		use.setProperty(main + ".help_remove", " remove - Removes protection from left-clicked container");
+		use.save();
 	}
 }

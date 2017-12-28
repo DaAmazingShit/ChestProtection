@@ -187,6 +187,7 @@ public class DatabaseManager {
 	 */
     public static Boolean createConfig() {
     	try {
+    		System.out.print(cp.prefix + "Creating default configuration...");
         	ChestProtection.config.load();
         	ChestProtection.config.setHeader(
         			"# Info:",
@@ -198,6 +199,7 @@ public class DatabaseManager {
         			);
         	ChestProtection.config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
         	ChestProtection.config.save();
+        	System.out.print(cp.prefix + "Done.");
         	return true;
     	}
     	catch (Exception ex) {
