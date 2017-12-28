@@ -1,5 +1,7 @@
 package pl.amazingshit.cp;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -11,11 +13,13 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.config.Configuration;
 
 public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;
 	public static LanguageManager lang;
+	public static Configuration config;
 	
 	@Override
 	public void onDisable() {
@@ -24,7 +28,8 @@ public class ChestProtection extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		lang = new LanguageManager();
+		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
+		lang   = new LanguageManager();
 		instance = this;
 		if (!DatabaseManager.databaseExists()) {
 			DatabaseManager.createDatabase();
@@ -53,8 +58,8 @@ public class ChestProtection extends JavaPlugin {
 		
 		if (cmd.getName().equalsIgnoreCase("cp")) {
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.RED + lang.helpAdd);
-				sender.sendMessage(ChatColor.RED + lang.helpRemove);
+				sender.sendMessage(ChatColor.RED + string + lang.helpAdd);
+				sender.sendMessage(ChatColor.RED + string + lang.helpRemove);
 				return true;
 			}
 			Player p = (Player)sender;

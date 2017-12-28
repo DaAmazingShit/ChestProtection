@@ -1,8 +1,10 @@
 name: ChestProtection
 version: 1.0.5
 main: pl.amazingshit.cp.ChestProtection
+description: Protects your containers.
 author: DaAmazingShit
 commands:
     cp:
-        usage: /cp
+        usage: /<command>
+        aliases: [chestprotection, container, chest, furnace, dispenser, jukebox]
         description: Container protection manager
