@@ -1,0 +1,14 @@
+strings:
+    help_add: ' add      - Adds protection to left-clicked container'
+    no_access: You cannot access this container.
+    command_addplayer: addplayer
+    protection_removed: Removed protection from your container.
+    command_removeplayer: removeplayer
+    command_add: add
+    protection_added: Added protection to your container.
+    container_not_selected: You haven't selected a container.
+    help_addplayer: ' addplayer <player> - Allows the <player> to access the container'
+    command_remove: remove
+    help_remove: ' remove - Removes protection from left-clicked container'
+    help_removeplayer: ' removeplayer <player> - Denies the <player> to access the
+        container'
