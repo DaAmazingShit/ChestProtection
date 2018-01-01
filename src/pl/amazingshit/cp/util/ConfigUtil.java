@@ -35,13 +35,13 @@ public class ConfigUtil extends ConfigurationNode {
 		super((new HashMap<String, Object>()));
 		this.file = config;
 		// Code borrowed from Bukkit (https://github.com/Bukkit/Bukkit/blob/46d4e2009340044aca64683bb9a376288e8fabb8/src/main/java/org/bukkit/util/config/Configuration.java)
-        DumperOptions options = new DumperOptions();
-
-        options.setIndent(4);
-        options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-
-        yaml = new Yaml(new SafeConstructor(), new EmptyNullRepresenter(), options);
-        // End of borrowed code
+		DumperOptions options = new DumperOptions();
+		
+		options.setIndent(4);
+		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+		
+		yaml = new Yaml(new SafeConstructor(), new EmptyNullRepresenter(), options);
+		// End of borrowed code
 	}
 
 	// Code borrowed from Bukkit (https://github.com/Bukkit/Bukkit/blob/914da8e887deaadb57be339aa2dbb78eca2742a4/src/main/java/org/bukkit/util/config/ConfigurationNode.java)
