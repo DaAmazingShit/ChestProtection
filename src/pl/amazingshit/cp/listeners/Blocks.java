@@ -67,7 +67,6 @@ public class Blocks extends BlockListener {
 					e.setCancelled(true);
 					return;
 				}
-				
 			}
 			DatabaseManager.addContainerToDB(e.getPlayer(), e.getBlockPlaced().getLocation());
 			players.addAll(DatabaseManager.getPlayersOwning(e.getBlockPlaced().getLocation()));

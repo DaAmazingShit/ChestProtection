@@ -61,7 +61,6 @@ public class DatabaseManager {
 			players.add(p.getName());
 			config.setProperty(toString(loc), players);
 			config.save();
-			config.load();
 			return Operation.SUCCESS;
 		}
 		catch (Exception ex) {
@@ -163,7 +162,6 @@ public class DatabaseManager {
 			}
 			config.removeProperty(toString(loc));
 			config.save();
-			config.load();
 			return Operation.SUCCESS;
 		}
 		catch (Exception ex) {
