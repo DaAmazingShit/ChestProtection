@@ -22,7 +22,6 @@ import pl.amazingshit.cp.managers.LanguageManager;
 import pl.amazingshit.cp.util.Bukkit;
 import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
-import pl.amazingshit.cp.util.cp;
 /**
  * Main ChestProtection class
  * @author DaAmazingShit
@@ -56,11 +55,11 @@ public class ChestProtection extends JavaPlugin {
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_PLACED,     new Blocks(),     Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_DAMAGED,    new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal, this);
 		
-		pm.registerEvent(Type.BLOCK_INTERACT, new Players(),    Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
 		
 		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal, this);
 	}
@@ -170,7 +169,6 @@ public class ChestProtection extends JavaPlugin {
 			DatabaseManager.config.load();
 			lang.setup();
 			config.load();
-			cp.cnfutil.load();
 			sender.sendMessage(ChatColor.GREEN + "Reloaded ChestProtection.");
 			return true;
 		}

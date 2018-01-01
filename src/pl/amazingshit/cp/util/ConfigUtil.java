@@ -34,7 +34,7 @@ public class ConfigUtil extends ConfigurationNode {
 	public ConfigUtil(File config) {
 		super((new HashMap<String, Object>()));
 		this.file = config;
-	    // Code borrowed from Bukkit (https://github.com/Bukkit/Bukkit/blob/46d4e2009340044aca64683bb9a376288e8fabb8/src/main/java/org/bukkit/util/config/Configuration.java)
+		// Code borrowed from Bukkit (https://github.com/Bukkit/Bukkit/blob/46d4e2009340044aca64683bb9a376288e8fabb8/src/main/java/org/bukkit/util/config/Configuration.java)
         DumperOptions options = new DumperOptions();
 
         options.setIndent(4);
