@@ -10,6 +10,7 @@
 # Eclipse files
 .classpath
 .project
+org.eclipse.jdt.core.prefs
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
