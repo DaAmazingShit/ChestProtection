@@ -8,3 +8,7 @@ commands:
         usage: /<command>
         aliases: [chestprotection, container, chest, furnace, dispenser, jukebox]
         description: Container protection manager
+    reloadcp:
+        usage: /reloadcp
+        aliases: [cpr, rcp]
+        description: Reloads ChestProtection configurations

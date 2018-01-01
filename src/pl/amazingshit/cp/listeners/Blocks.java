@@ -6,21 +6,23 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.BlockInteractEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.plugin.java.annotations.DontExport;
 
 import pl.amazingshit.cp.ChestProtection;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.util.cp;
-@DontExport
+
 public class Blocks extends BlockListener {
 	//                    player  container
 	public static HashMap<String, Location> lastClicked = new HashMap<String, Location>();
-	
+
 	@Override
 	public void onBlockPlace(BlockPlaceEvent e) {
 		if (!(e.getBlockPlaced().getType() == Material.CHEST || e.getBlockPlaced().getType() == Material.FURNACE || e.getBlockPlaced().getType() == Material.DISPENSER || e.getBlockPlaced().getType() == Material.JUKEBOX || e.getBlockPlaced().getType() == Material.BURNING_FURNACE)) {
@@ -74,7 +76,7 @@ public class Blocks extends BlockListener {
 		DatabaseManager.addContainerToDB(e.getPlayer(), e.getBlockPlaced().getLocation());
 		e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
 	}
-		
+
 	@Override
 	public void onBlockBreak(BlockBreakEvent e) {
 		if (!(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE)) {
@@ -90,7 +92,7 @@ public class Blocks extends BlockListener {
 			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
 		}
 	}
-		
+
 	@Override
 	public void onBlockIgnite(BlockIgniteEvent e) {
 		if (!(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE)) {
@@ -100,7 +102,7 @@ public class Blocks extends BlockListener {
 			e.setCancelled(true);
 		}
 	}
-		
+
 	@Override
 	public void onBlockDamage(BlockDamageEvent e) {
 		if (e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE) {
@@ -125,6 +127,29 @@ public class Blocks extends BlockListener {
 		}
 		else {
 			return;
+		}
+	}
+
+	@Override
+	public void onBlockInteract(BlockInteractEvent e) {
+		Player p = null;
+		if (e.isPlayer()) {
+			p = (Player)e.getEntity();
+		}
+		else {
+			return;
+		}
+		Block block = e.getBlock();
+		if (!(block.getType() == Material.CHEST || block.getType() == Material.FURNACE || block.getType() == Material.DISPENSER || block.getType() == Material.JUKEBOX)) {
+			return;
+		}
+		if (DatabaseManager.isContainerProtected(block.getLocation())) {
+		    if (DatabaseManager.doesPlayerOwnContainer(p, block.getLocation())) {
+			    return;
+		    }
+		    
+			p.sendMessage(ChatColor.RED + cp.lang.noAccess);
+			e.setCancelled(true);
 		}
 	}
 }

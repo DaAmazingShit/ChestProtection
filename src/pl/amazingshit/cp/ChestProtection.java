@@ -13,14 +13,16 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
 
 import pl.amazingshit.cp.listeners.Blocks;
 import pl.amazingshit.cp.listeners.Explosions;
 import pl.amazingshit.cp.listeners.Players;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.managers.LanguageManager;
+import pl.amazingshit.cp.util.Bukkit;
+import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
+import pl.amazingshit.cp.util.cp;
 /**
  * Main ChestProtection class
  * @author DaAmazingShit
@@ -29,7 +31,7 @@ public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;
 	public static LanguageManager lang;
-	public static Configuration config;
+	public static ConfigUtil config;
 	public static String prefix = "[ChestProtection] ";
 	public static CraftServer server;
 	
@@ -41,7 +43,8 @@ public class ChestProtection extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		server = (CraftServer)this.getServer();
-		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
+		Bukkit.set(server);
+		config = new ConfigUtil(new File(this.getDataFolder(), "config.yml"));
 		lang   = new LanguageManager();
 		instance = this;
 		if (!DatabaseManager.configExists()) {
@@ -53,11 +56,11 @@ public class ChestProtection extends JavaPlugin {
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal, this);
-		
-		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_PLACED,     new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_DAMAGED,    new Blocks(),     Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal, this);
+		
+		pm.registerEvent(Type.BLOCK_RIGHTCLICKED, new Players(),    Priority.Normal, this);
 		
 		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal, this);
 	}
@@ -162,6 +165,15 @@ public class ChestProtection extends JavaPlugin {
 			else {
 				lang.displayHelp(cmdalias, p);
 			}
+		}
+		if (cmd.getName().equalsIgnoreCase("reloadcp")) {
+			DatabaseManager.config.load();
+			lang.config.load();
+			lang.langSource.load();
+			config.load();
+			cp.cnfutil.load();
+			sender.sendMessage(ChatColor.GREEN + "Reloaded ChestProtection.");
+			return true;
 		}
 		return true;
 	}

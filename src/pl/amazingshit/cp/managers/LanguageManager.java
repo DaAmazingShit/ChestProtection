@@ -5,6 +5,8 @@ import java.io.File;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
+
+import pl.amazingshit.cp.util.ConfigUtil;
 /**
  * Manages language files.
  */
@@ -12,8 +14,9 @@ public class LanguageManager {
 	
 	public LanguageManager() {}
 	
-	private Configuration config          = null;
-	private Configuration langSource      = null;
+	// private --> public for reload purposes
+	public ConfigUtil config              = null;
+	public ConfigUtil langSource          = null;
 	
 	public String noAccess                = null;
 	public String protectionAdded         = null;
@@ -30,11 +33,11 @@ public class LanguageManager {
 	
 	/**
 	 * Reloads language files or setups them
-	 * 
 	 */
 	public void setup() {
 		File langFile = new File("plugins/ChestProtection", "lang.yml");
-		config = new Configuration(langFile);
+		config = new ConfigUtil(langFile);
+		langSource = new ConfigUtil(langFile);
 		config.load();
 		if (config.getProperty("lang.custom") == null) {
 			config.setHeader("# You can select your custom lang.yml file which will be used to display custom messages in the game (if you have one)");
@@ -48,11 +51,9 @@ public class LanguageManager {
 			this.Default();
 			return;
 		}
-		String custom = null;
-		custom = config.getString("lang.custom", custom);
-		File file = new File("plugins/ChestProtection", custom);
+		File file = new File("plugins/ChestProtection", isOff);
 		if (file.exists()) {
-			langSource = new Configuration(file);
+			langSource = new ConfigUtil(file);
 			langSource.load();
 			String main = "strings";
 			if (langSource.getProperty(main) == null) {
@@ -73,12 +74,12 @@ public class LanguageManager {
 			this.removeFromContainerArg = langSource.getString(main + ".command_removeplayer", this.removeFromContainerArg);
 		}
 		else {
-			// TODO fix null error on first start
+			this.Default();
 			this.createLangFile(file);
 		}
 	}
 	
-	private void Default() {
+	protected void Default() {
 		this.noAccess               = "You cannot access this container.";
 		this.protectionAdded        = "This container is now protected.";
 		this.protectionRemoved      = "This container is no longer protected.";
@@ -93,7 +94,7 @@ public class LanguageManager {
 		this.removeFromContainerArg = "removeplayer";
 	}
 	
-	private void createLangFile(File file) {
+	protected void createLangFile(File file) {
 		String main = "strings";
 		Configuration use;
 		use = new Configuration(file);

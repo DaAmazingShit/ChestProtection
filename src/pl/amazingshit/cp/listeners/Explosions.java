@@ -4,10 +4,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
-import org.bukkit.plugin.java.annotations.DontExport;
 
 import pl.amazingshit.cp.managers.DatabaseManager;
-@DontExport
+
 public class Explosions extends EntityListener {
 	
     public void onEntityExplode(EntityExplodeEvent event) {

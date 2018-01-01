@@ -23,4 +23,8 @@ public enum Operation {
 	 * Returned if player is not assigned to container *configuration*.
 	 */
 	NOT_IN_LIST,
+	/**
+	 * Returned if property is needed and is null.
+	 */
+	NULL;
 }
