@@ -1,6 +1,5 @@
 package pl.amazingshit.cp.listeners;
 
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
