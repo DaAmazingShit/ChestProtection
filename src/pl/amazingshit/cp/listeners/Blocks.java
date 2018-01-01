@@ -1,6 +1,8 @@
 package pl.amazingshit.cp.listeners;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -37,7 +39,7 @@ public class Blocks extends BlockListener {
 			int z      = e.getBlockPlaced().getLocation().getBlockZ();
 			int zminus = e.getBlockPlaced().getLocation().getBlockZ()-1;
 			int z1     = e.getBlockPlaced().getLocation().getBlockZ()+1;
-			
+			List<String> players = new LinkedList<String>();
 			if (world.getBlockAt(xminus, y, z).getType() == Material.CHEST && DatabaseManager.isContainerProtected(world.getBlockAt(xminus, y, z).getLocation())) {
 				if (!DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(xminus, y, z).getLocation())) {
 					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
@@ -65,8 +67,14 @@ public class Blocks extends BlockListener {
 					e.setCancelled(true);
 					return;
 				}
+				
 			}
 			DatabaseManager.addContainerToDB(e.getPlayer(), e.getBlockPlaced().getLocation());
+			players.addAll(DatabaseManager.getPlayersOwning(e.getBlockPlaced().getLocation()));
+			players.remove(e.getPlayer().getName());
+			for (String p : players) {
+				DatabaseManager.addPlayerToContainer(p, e.getBlockPlaced().getLocation());
+			}
 			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
 			return;
 		}

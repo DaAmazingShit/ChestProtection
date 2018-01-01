@@ -168,8 +168,7 @@ public class ChestProtection extends JavaPlugin {
 		}
 		if (cmd.getName().equalsIgnoreCase("reloadcp")) {
 			DatabaseManager.config.load();
-			lang.config.load();
-			lang.langSource.load();
+			lang.setup();
 			config.load();
 			cp.cnfutil.load();
 			sender.sendMessage(ChatColor.GREEN + "Reloaded ChestProtection.");

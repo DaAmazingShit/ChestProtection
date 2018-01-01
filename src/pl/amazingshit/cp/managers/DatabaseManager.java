@@ -70,6 +70,27 @@ public class DatabaseManager {
 	}
 
 	/**
+	 * Returns player assigned to container.
+	 * 
+	 * @param loc location
+	 * @return
+	 */
+	public static List<String> getPlayersOwning(Location loc) {
+		config.load();
+		List<String> ret = new LinkedList<String>();
+		try {
+			ret = config.getStringList(toString(loc), ret);
+			if (ret.isEmpty()) {
+				return null;
+			}
+			return ret;
+		}
+		catch (Exception ex) {
+			return null;
+		}
+	}
+
+	/**
 	 * Tries to add player to container.
 	 * 
 	 * @param p playername
