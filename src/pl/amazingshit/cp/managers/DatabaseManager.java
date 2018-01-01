@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,7 +16,6 @@ import pl.amazingshit.cp.util.Operation;
 import pl.amazingshit.cp.util.cp;
 /**
  * Represents a database
- * @author DaAmazingShit
  */
 public class DatabaseManager {
 	
@@ -114,7 +112,7 @@ public class DatabaseManager {
 		try {
 			config.load();
 			
-			World w = Bukkit.getServer().getWorld(loc.getWorld().getName());
+			World w = cp.instance.getServer().getWorld(loc.getWorld().getName());
 			
 			Block toReturn = w.getBlockAt(loc);
 			

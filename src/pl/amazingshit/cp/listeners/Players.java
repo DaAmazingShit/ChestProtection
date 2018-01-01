@@ -6,10 +6,11 @@ import org.bukkit.block.Block;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.plugin.java.annotations.DontExport;
 
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.util.cp;
-
+@DontExport
 public class Players extends PlayerListener {
 	
 	@Override

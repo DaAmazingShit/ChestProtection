@@ -2,7 +2,6 @@ package pl.amazingshit.cp;
 
 import java.io.File;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -22,14 +21,16 @@ import pl.amazingshit.cp.listeners.Players;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.managers.LanguageManager;
 import pl.amazingshit.cp.util.Operation;
-
+/**
+ * Main ChestProtection class
+ * @author DaAmazingShit
+ */
 public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;
 	public static LanguageManager lang;
 	public static Configuration config;
 	public static String prefix = "[ChestProtection] ";
-	private static Double serverversion;
 	public static CraftServer server;
 	
 	@Override
@@ -40,7 +41,6 @@ public class ChestProtection extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		server = (CraftServer)this.getServer();
-		serverversion = Double.parseDouble(server.protocolVersion);
 		config = new Configuration(new File(this.getDataFolder(), "config.yml"));
 		lang   = new LanguageManager();
 		instance = this;
@@ -53,16 +53,10 @@ public class ChestProtection extends JavaPlugin {
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal, this);
-		if (serverversion >= 1.3_01) {
-			pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
-			pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
-			pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
-		}
-		if (serverversion <= 1.3_01) {
-			pm.registerEvent(Type.BLOCK_PLACED,        new Blocks(), Priority.Normal, this);
-			pm.registerEvent(Type.BLOCK_DAMAGED,       new Blocks(), Priority.Normal, this);
-			pm.registerEvent(Type.BLOCK_RIGHTCLICKED, new Blocks(), Priority.Normal, this);
-		}
+		
+		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal, this);
 		
 		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal, this);

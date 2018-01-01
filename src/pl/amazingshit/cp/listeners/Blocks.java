@@ -2,7 +2,6 @@ package pl.amazingshit.cp.listeners;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,10 +11,12 @@ import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.plugin.java.annotations.DontExport;
 
 import pl.amazingshit.cp.ChestProtection;
 import pl.amazingshit.cp.managers.DatabaseManager;
-
+import pl.amazingshit.cp.util.cp;
+@DontExport
 public class Blocks extends BlockListener {
 	//                    player  container
 	public static HashMap<String, Location> lastClicked = new HashMap<String, Location>();
@@ -25,7 +26,7 @@ public class Blocks extends BlockListener {
 		if (!(e.getBlockPlaced().getType() == Material.CHEST || e.getBlockPlaced().getType() == Material.FURNACE || e.getBlockPlaced().getType() == Material.DISPENSER || e.getBlockPlaced().getType() == Material.JUKEBOX || e.getBlockPlaced().getType() == Material.BURNING_FURNACE)) {
 			return;
 		}
-		World world = Bukkit.getServer().getWorld(e.getBlockPlaced().getLocation().getWorld().getName());
+		World world = cp.instance.getServer().getWorld(e.getBlockPlaced().getLocation().getWorld().getName());
 		if (e.getBlockPlaced().getType() == Material.CHEST) {
 			
 			int x      = e.getBlockPlaced().getLocation().getBlockX();

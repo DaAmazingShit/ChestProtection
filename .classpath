@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/Users/Definitely Moresteck/Desktop/backup wszystkich save z winka 7/inne2/&apos;Paczki&apos;/craftbukkit-1.3_01 (CBunknown).jar"/>
+	<classpathentry kind="lib" path="C:/Users/DaAmazingShit/Desktop/bc1.3/test.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

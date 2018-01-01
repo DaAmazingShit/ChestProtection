@@ -1,7 +1,6 @@
 package pl.amazingshit.cp.util;
 /**
  * Represents operation result
- * @author DaAmazingShit
  */
 public enum Operation {
 	/**
