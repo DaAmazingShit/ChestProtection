@@ -21,8 +21,8 @@ public class ConfigManager {
 
 	/**
 	 * Do configuration exists? If no it will return false.
-     * 
-     * @return database exists
+	 * 
+	 * @return database exists
 	 */
 	public static Boolean configExists() {
 		config.load();
@@ -34,6 +34,11 @@ public class ConfigManager {
 		}
 	}
 
+	/**
+	 * Creates default configuration.
+	 * 
+	 * @return operation - SUCCESS, ALREADY_EXISTS, FAIL
+	 */
 	public static Operation createConfig() {
 		try {
 			System.out.print(cp.prefix + "Creating default configuration...");

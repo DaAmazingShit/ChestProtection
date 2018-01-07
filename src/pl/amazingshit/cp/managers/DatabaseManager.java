@@ -246,8 +246,8 @@ public class DatabaseManager {
 
 	/**
 	 * Do database exists? If no it will return false.
-     * 
-     * @return database exists
+	 * 
+	 * @return database exists
 	 */
 	public static Boolean databaseExists() {
 		config.load();
@@ -261,9 +261,9 @@ public class DatabaseManager {
 
 	/**
 	 * Returns database location format.
-     * 
-     * @param loc location
-     * @return database location format
+	 * 
+	 * @param loc location
+	 * @return database location format
 	 */
 	public static String toString(Location loc) {
 		String world = loc.getWorld().getName();
