@@ -244,27 +244,27 @@ public class DatabaseManager {
 		}
 	}
 
-    /**
-     * Do database exists? If no it will return false.
+	/**
+	 * Do database exists? If no it will return false.
      * 
      * @return database exists
-     */
-    public static Boolean databaseExists() {
-    	config.load();
-    	if (config.getKeys().isEmpty()) {
-    		return false;
-    	}
-    	else {
-    		return true;
-    	}
-    }
+	 */
+	public static Boolean databaseExists() {
+		config.load();
+		if (config.getKeys().isEmpty()) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 
-    /**
-     * Returns database location format.
+	/**
+	 * Returns database location format.
      * 
      * @param loc location
      * @return database location format
-     */
+	 */
 	public static String toString(Location loc) {
 		String world = loc.getWorld().getName();
 		String x = Integer.toString(loc.getBlockX());
