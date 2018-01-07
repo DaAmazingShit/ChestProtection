@@ -27,9 +27,9 @@ public class Players extends PlayerListener {
 				e.getPlayer().sendMessage(ChatColor.YELLOW + "Accessing protected container.");
 				return;
 			}
-		    if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), block.getLocation())) {
-			    return;
-		    }
+			if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), block.getLocation())) {
+				return;
+			}
 		    
 			e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 			e.setCancelled(true);
