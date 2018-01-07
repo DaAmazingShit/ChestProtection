@@ -18,7 +18,9 @@ import pl.amazingshit.cp.ChestProtection;
 import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.util.cp;
-
+/**
+ * Block listener.
+ */
 public class Blocks extends BlockListener {
 	//                    player  container
 	public static HashMap<String, Location> lastClicked = new HashMap<String, Location>();

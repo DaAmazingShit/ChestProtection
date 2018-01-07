@@ -5,7 +5,9 @@ import java.io.File;
 import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
 import pl.amazingshit.cp.util.cp;
-
+/**
+ * Manages configuration.
+ */
 public class ConfigManager {
 
 	public static ConfigUtil config = new ConfigUtil(new File("plugins/ChestProtection", "config.yml"));

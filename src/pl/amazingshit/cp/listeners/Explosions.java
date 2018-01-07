@@ -5,7 +5,9 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityListener;
 
 import pl.amazingshit.cp.managers.DatabaseManager;
-
+/**
+ * Entity listener
+ */
 public class Explosions extends EntityListener {
 
 	@Override
