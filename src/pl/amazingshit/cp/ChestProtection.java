@@ -1,7 +1,5 @@
 package pl.amazingshit.cp;
 
-import java.io.File;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -17,10 +15,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.amazingshit.cp.listeners.Blocks;
 import pl.amazingshit.cp.listeners.Explosions;
 import pl.amazingshit.cp.listeners.Players;
+import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.managers.LanguageManager;
 import pl.amazingshit.cp.util.Bukkit;
-import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
 /**
  * Main ChestProtection class
@@ -30,7 +28,6 @@ public class ChestProtection extends JavaPlugin {
 	
 	public static Plugin instance;
 	public static LanguageManager lang;
-	public static ConfigUtil config;
 	public static String prefix = "[ChestProtection] ";
 	public static CraftServer server;
 	
@@ -43,11 +40,10 @@ public class ChestProtection extends JavaPlugin {
 	public void onEnable() {
 		server = (CraftServer)this.getServer();
 		Bukkit.set(server);
-		config = new ConfigUtil(new File(this.getDataFolder(), "config.yml"));
 		lang   = new LanguageManager();
 		instance = this;
-		if (!DatabaseManager.configExists()) {
-			DatabaseManager.createConfig();
+		if (!ConfigManager.configExists()) {
+			ConfigManager.createConfig();
 		}
 		lang.setup();
 		
@@ -168,7 +164,7 @@ public class ChestProtection extends JavaPlugin {
 		if (cmd.getName().equalsIgnoreCase("reloadcp")) {
 			DatabaseManager.config.load();
 			lang.setup();
-			config.load();
+			ConfigManager.config.load();
 			sender.sendMessage(ChatColor.GREEN + "Reloaded ChestProtection.");
 			return true;
 		}

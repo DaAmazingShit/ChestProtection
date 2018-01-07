@@ -7,6 +7,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
+import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.util.cp;
 
@@ -22,6 +23,10 @@ public class Players extends PlayerListener {
 			return;
 		}
 		if (DatabaseManager.isContainerProtected(block.getLocation())) {
+			if (e.getPlayer().isOp() && ConfigManager.opAccess()) {
+				e.getPlayer().sendMessage(ChatColor.YELLOW + "Accessing protected container.");
+				return;
+			}
 		    if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), block.getLocation())) {
 			    return;
 		    }

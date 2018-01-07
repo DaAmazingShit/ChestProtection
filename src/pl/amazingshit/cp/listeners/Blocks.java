@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import pl.amazingshit.cp.ChestProtection;
+import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.util.cp;
 
@@ -87,6 +88,11 @@ public class Blocks extends BlockListener {
 			return;
 		}
 	    if (DatabaseManager.isContainerProtected(e.getBlock().getLocation()) ) {
+	    	if (e.getPlayer().isOp() && ConfigManager.opAccess()) {
+	    		DatabaseManager.removeContainerFromDB(e.getBlock().getLocation());
+	    		e.getPlayer().sendMessage(ChatColor.YELLOW + "Removed protected container.");
+	    		return;
+	    	}
 			if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation()) == false) {
 				e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
 				e.setCancelled(true);
@@ -111,6 +117,13 @@ public class Blocks extends BlockListener {
 	public void onBlockDamage(BlockDamageEvent e) {
 		if (e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX || e.getBlock().getType() == Material.BURNING_FURNACE) {
 			if (DatabaseManager.isContainerProtected(e.getBlock().getLocation())) {
+				if (e.getPlayer().isOp() && ConfigManager.opAccess()) {
+					if (lastClicked.get(e.getPlayer().getName()) != null) {
+						lastClicked.remove(e.getPlayer().getName());
+				    }
+					lastClicked.put(e.getPlayer().getName(), e.getBlock().getLocation());
+					return;
+				}
 				if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation())) {
 					if (lastClicked.get(e.getPlayer().getName()) != null) {
 						lastClicked.remove(e.getPlayer().getName());

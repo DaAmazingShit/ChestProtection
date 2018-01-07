@@ -10,7 +10,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-import pl.amazingshit.cp.ChestProtection;
 import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
 import pl.amazingshit.cp.util.cp;
@@ -245,37 +244,6 @@ public class DatabaseManager {
 		}
 	}
 
-	/**
-	 * This method tries to create default configuration.
-	 * If operation was successful it will return true.
-	 * 
-	 * @return operation - 
-	 */
-    public static Operation createConfig() {
-    	try {
-    		System.out.print(cp.prefix + "Creating default configuration...");
-        	ChestProtection.config.load();
-        	if (cp.config.getProperty("version") != null || cp.config.getHeader() != null) {
-        		return Operation.ALREADY_EXISTS;
-        	}
-        	ChestProtection.config.setHeader(
-        			"# Info:",
-        			"#     Author: DaAmazingShit",
-        			"#     Contact:",
-        			"#     - Github:  DaAmazingShit",
-        			"#     - e-mail:  da.amazing.shit@interia.pl",
-        			"# Warning! ChestProtection becomes weird while using it in spawn-protection region"
-        			);
-        	ChestProtection.config.setProperty("version", ChestProtection.instance.getDescription().getVersion());
-        	ChestProtection.config.save();
-        	System.out.print(cp.prefix + "Done.");
-        	return Operation.SUCCESS;
-    	}
-    	catch (Exception ex) {
-    		return Operation.FAIL;
-    	}
-    }
-
     /**
      * Do database exists? If no it will return false.
      * 
@@ -284,21 +252,6 @@ public class DatabaseManager {
     public static Boolean databaseExists() {
     	config.load();
     	if (config.getKeys().isEmpty()) {
-    		return false;
-    	}
-    	else {
-    		return true;
-    	}
-    }
-
-    /**
-     * Do configuration exists? If no it will return false.
-     * 
-     * @return database exists
-     */
-    public static Boolean configExists() {
-    	ChestProtection.config.load();
-    	if (ChestProtection.config.getKeys().isEmpty()) {
     		return false;
     	}
     	else {
