@@ -114,10 +114,10 @@ public class ChestProtection extends JavaPlugin {
 					String player = args[1];
 					Operation op = DatabaseManager.addPlayerToContainer(player, lc);
 					if (op == Operation.SUCCESS) {
-						p.sendMessage(ChatColor.GREEN + "Successfully removed player from your container!");
+						p.sendMessage(ChatColor.GREEN + "Successfully added player to your container!");
 					}
 					if (op == Operation.ALREADY_EXISTS) {
-						p.sendMessage(ChatColor.RED + "A player is already assigned to this container!");
+						p.sendMessage(ChatColor.RED + "This player is already assigned to your container!");
 					}
 					if (op == Operation.NOT_PROTECTED) {
 						p.sendMessage(ChatColor.RED + "This container is not protected.");
@@ -143,7 +143,7 @@ public class ChestProtection extends JavaPlugin {
 					String player = args[1];
 					Operation op = DatabaseManager.removePlayerFromContainer(player, lc);
 					if (op == Operation.SUCCESS) {
-						p.sendMessage(ChatColor.GREEN + "Successfully added player to your container!");
+						p.sendMessage(ChatColor.GREEN + "Successfully removed player from your container!");
 					}
 					if (op == Operation.NOT_IN_LIST) {
 						p.sendMessage(ChatColor.RED + "This player is not assigned to your container!");
