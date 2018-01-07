@@ -93,14 +93,14 @@ public class Blocks extends BlockListener {
 	    		e.getPlayer().sendMessage(ChatColor.YELLOW + "Removed protected container.");
 	    		return;
 	    	}
-			if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation()) == false) {
-				e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
-				e.setCancelled(true);
-				return;
-			}
-			DatabaseManager.removeContainerFromDB(e.getBlock().getLocation());
-			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
-		}
+	    	if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation()) == false) {
+	    		e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+	    		e.setCancelled(true);
+	    		return;
+	    	}
+	    	DatabaseManager.removeContainerFromDB(e.getBlock().getLocation());
+	    	e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
+	    }
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class Blocks extends BlockListener {
 				if (e.getPlayer().isOp() && ConfigManager.opAccess()) {
 					if (lastClicked.get(e.getPlayer().getName()) != null) {
 						lastClicked.remove(e.getPlayer().getName());
-				    }
+					}
 					lastClicked.put(e.getPlayer().getName(), e.getBlock().getLocation());
 					return;
 				}
