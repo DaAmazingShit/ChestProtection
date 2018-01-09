@@ -29,8 +29,8 @@ public class ConfigUtil extends Configuration {
 		super(file);
 		this.file = file;
 		DumperOptions options = new DumperOptions();
-        options.setIndent(4);
-        options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+		options.setIndent(4);
+		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 		jaml = new Yaml(new SafeConstructor(), new Representer(), options);
 	}
 
@@ -85,12 +85,12 @@ public class ConfigUtil extends Configuration {
 		FileOutputStream stream = null;
 		try {
 			stream = new FileOutputStream(file);
-	        OutputStreamWriter writer = new OutputStreamWriter(stream, "UTF-8");
-	        if (header != null) {
-	            writer.append(header);
-	            writer.append("\r\n");
-	        }
-	        jaml.dump(root, writer);
+			OutputStreamWriter writer = new OutputStreamWriter(stream, "UTF-8");
+			if (header != null) {
+				writer.append(header);
+				writer.append("\r\n");
+			}
+			jaml.dump(root, writer);
 		}
 		catch (Exception ex) {
 			
