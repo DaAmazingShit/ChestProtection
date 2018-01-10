@@ -2,6 +2,7 @@ package pl.amazingshit.cp.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,8 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.representer.Representer;
-
 /**
- * ConfigUtil v1.2
- * @author DaAmazingShit
+ * ConfigUtil v1.2.1
  */
 public class ConfigUtil extends Configuration {
 
@@ -80,9 +79,16 @@ public class ConfigUtil extends Configuration {
         return header;
     }
 
-	public void Save() {
-		this.save();
+	/**
+	 * Use this to save header.
+	 */
+	public void save_() {
 		FileOutputStream stream = null;
+		File parent = file.getParentFile();
+		
+		if (parent != null) {
+			parent.mkdirs();
+		}
 		try {
 			stream = new FileOutputStream(file);
 			OutputStreamWriter writer = new OutputStreamWriter(stream, "UTF-8");
@@ -92,8 +98,14 @@ public class ConfigUtil extends Configuration {
 			}
 			jaml.dump(root, writer);
 		}
-		catch (Exception ex) {
-			
+		catch (Exception ex) {}
+		finally {
+			try {
+				if (stream != null) {
+					stream.close();
+				}
+			}
+			catch (IOException ex) {}
 		}
 	}
 }
