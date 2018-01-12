@@ -4,8 +4,6 @@ import java.io.File;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.util.config.Configuration;
-
 import pl.amazingshit.cp.util.ConfigUtil;
 /**
  * Manages language files.
@@ -14,7 +12,6 @@ public class LanguageManager {
 	
 	public LanguageManager() {}
 	
-	// private --> public for reload purposes
 	public ConfigUtil config              = null;
 	public ConfigUtil langSource          = null;
 	
@@ -96,8 +93,8 @@ public class LanguageManager {
 	
 	protected void createLangFile(File file) {
 		String main = "strings";
-		Configuration use;
-		use = new Configuration(file);
+		ConfigUtil use;
+		use = new ConfigUtil(file);
 		use.load();
 		use.setProperty(main + ".no_access", "You cannot access this container.");
 		use.setProperty(main + ".protection_added", "Added protection to your container.");
@@ -111,7 +108,7 @@ public class LanguageManager {
 		use.setProperty(main + ".help_remove", " remove - Removes protection from left-clicked container");
 		use.setProperty(main + ".help_addplayer", " addplayer <player> - Allows the <player> to access the container");
 		use.setProperty(main + ".help_removeplayer", " removeplayer <player> - Denies the <player> to access the container");
-		use.save();
+		use.save_();
 	}
 	
 	/**

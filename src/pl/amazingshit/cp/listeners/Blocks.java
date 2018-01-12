@@ -15,9 +15,9 @@ import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import pl.amazingshit.cp.ChestProtection;
+import pl.amazingshit.cp.cp;
 import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
-import pl.amazingshit.cp.util.cp;
 /**
  * Block listener.
  */

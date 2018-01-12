@@ -1,6 +1,5 @@
-package pl.amazingshit.cp.util;
+package pl.amazingshit.cp;
 
-import pl.amazingshit.cp.ChestProtection;
 /**
  * Shortcut for ChestProtection
  */

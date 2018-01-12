@@ -2,9 +2,9 @@ package pl.amazingshit.cp.managers;
 
 import java.io.File;
 
+import pl.amazingshit.cp.cp;
 import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
-import pl.amazingshit.cp.util.cp;
 /**
  * Manages configuration.
  */
@@ -18,6 +18,7 @@ public class ConfigManager {
 	 * @return access
 	 */
 	public static Boolean opAccess() {
+		config.load();
 		return config.getBoolean("allow-ops", false);
 	}
 
@@ -58,7 +59,7 @@ public class ConfigManager {
 			);
 			config.setProperty("version", cp.instance.getDescription().getVersion());
 			config.setProperty("allow-ops", false);
-			config.save();
+			config.save_();
 			System.out.print(cp.prefix + "Done.");
 			return Operation.SUCCESS;
 		}

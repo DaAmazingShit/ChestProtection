@@ -10,9 +10,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import pl.amazingshit.cp.cp;
 import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Operation;
-import pl.amazingshit.cp.util.cp;
 /**
  * Manages database
  */
@@ -59,7 +59,7 @@ public class DatabaseManager {
 			}
 			players.add(p.getName());
 			config.setProperty(toString(loc), players);
-			config.save();
+			config.save_();
 			return Operation.SUCCESS;
 		}
 		catch (Exception ex) {
@@ -111,7 +111,7 @@ public class DatabaseManager {
 				}
 				players.add(p);
 				config.setProperty(toString(loc), players);
-				config.save();
+				config.save_();
 				return Operation.SUCCESS;
 			}
 			else {
@@ -160,7 +160,7 @@ public class DatabaseManager {
 				return Operation.NOT_PROTECTED;
 			}
 			config.removeProperty(toString(loc));
-			config.save();
+			config.save_();
 			return Operation.SUCCESS;
 		}
 		catch (Exception ex) {
@@ -188,7 +188,7 @@ public class DatabaseManager {
 			}
 			players.remove(p);
 			config.setProperty(toString(loc), players);
-			config.save();
+			config.save_();
 			return Operation.SUCCESS;
 		}
 		catch (Exception ex) {

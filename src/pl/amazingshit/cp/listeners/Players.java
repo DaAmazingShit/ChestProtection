@@ -7,9 +7,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
+import pl.amazingshit.cp.cp;
 import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
-import pl.amazingshit.cp.util.cp;
 /**
  * Player listener.
  */
