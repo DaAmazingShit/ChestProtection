@@ -12,6 +12,8 @@ public class Permission {
 
 	public enum Perm {
 
+		SHOW_INFO("cp.admin.info"),
+
 		ACCESS_OTHER("cp.admin.access"),
 
 		RELOAD("cp.admin.reload"),
@@ -67,6 +69,9 @@ public class Permission {
 			}
 			if (perm.equalsIgnoreCase("PLAYER_ADD")) {
 				return Perm.PLAYER_ADD;
+			}
+			if (perm.equalsIgnoreCase("SHOW_INFO")) {
+				return Perm.SHOW_INFO;
 			}
 			return null;
 		}

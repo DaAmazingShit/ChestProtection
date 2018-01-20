@@ -1,5 +1,7 @@
 package pl.amazingshit.cp;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,13 +32,13 @@ import pl.amazingshit.cp.util.Permission.Perm;
  * @author DaAmazingShit
  */
 public class ChestProtection extends JavaPlugin {
-	// TODO: */cp INFO!!!!!!!!!!!!!!!!!!!!!!*
+
 	public static Plugin instance;
 	public static LanguageManager lang;
 	public static String prefix = "[ChestProtection] ";
 	public static CraftServer server;
 	public static boolean pe = false;
-	
+
 	@Override
 	public void onDisable() {
 		
@@ -71,7 +73,7 @@ public class ChestProtection extends JavaPlugin {
 	public static String getVersion() {
 		return "1.2";
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdalias, String[] args) {
 		
@@ -83,6 +85,25 @@ public class ChestProtection extends JavaPlugin {
 			if (args.length == 0) {
 				lang.displayHelp(cmdalias, p);
 				return true;
+			}
+			if (args[0].equalsIgnoreCase(lang.protectionArgInfo)) {
+				if (!Permission.hasPlayer(p, Perm.SHOW_INFO)) {
+					p.sendMessage(ChatColor.RED + lang.noPerm);
+					return true;
+				}
+				if (Blocks.lastClicked.get(p.getName()) != null) {
+					Location infoo = Blocks.lastClicked.get(p.getName());
+					
+					List<String> players = DatabaseManager.getPlayersOwning(infoo);
+					if (players.isEmpty()) {
+						p.sendMessage(ChatColor.YELLOW + lang.notProtected);
+						return true;
+					}
+					p.sendMessage(lang.playersOwningThis);
+					for (String pl : players) {
+						p.sendMessage(" - " + ChatColor.BLUE + pl);
+					}
+				}
 			}
 			if (args[0].equalsIgnoreCase(lang.protectionArgRemove)) {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
@@ -141,13 +162,13 @@ public class ChestProtection extends JavaPlugin {
 						p.sendMessage(ChatColor.GREEN + lang.protectionAdded);
 					}
 					if (op == Operation.ALREADY_EXISTS) {
-						p.sendMessage(ChatColor.RED + "This container is already protected!");
+						p.sendMessage(ChatColor.RED + lang.alreadyProtected);
 					}
 					if (op == Operation.FAIL) {
-						p.sendMessage(ChatColor.RED + "Something went wrong!");
+						p.sendMessage(ChatColor.RED + lang.wrong);
 					}
 					if (op == Operation.NULL) {
-						p.sendMessage(ChatColor.RED + "It seems that you don't exist...");
+						p.sendMessage(ChatColor.RED + lang.noPlayer);
 					}
 					return true;
 				} else {
@@ -172,16 +193,16 @@ public class ChestProtection extends JavaPlugin {
 					Operation op = DatabaseManager.addPlayerToContainer(player, lc);
 					
 					if (op == Operation.SUCCESS) {
-						p.sendMessage(ChatColor.GREEN + "Successfully added player to your container!");
+						p.sendMessage(ChatColor.GREEN + lang.addedToSuccess);
 					}
 					if (op == Operation.ALREADY_EXISTS) {
-						p.sendMessage(ChatColor.RED + "This player is already assigned to your container!");
+						p.sendMessage(ChatColor.RED + lang.alreadyAssigned);
 					}
 					if (op == Operation.NOT_PROTECTED) {
-						p.sendMessage(ChatColor.RED + "This container is not protected.");
+						p.sendMessage(ChatColor.RED + lang.notProtected);
 					}
 					if (op == Operation.FAIL) {
-						p.sendMessage(ChatColor.RED + "Something went wrong!");
+						p.sendMessage(ChatColor.RED + lang.wrong);
 					}
 					return true;
 				}
@@ -205,16 +226,16 @@ public class ChestProtection extends JavaPlugin {
 					String player = args[1];
 					Operation op = DatabaseManager.removePlayerFromContainer(player, lc);
 					if (op == Operation.SUCCESS) {
-						p.sendMessage(ChatColor.GREEN + "Successfully removed player from your container!");
+						p.sendMessage(ChatColor.GREEN + lang.removedFromSuccess);
 					}
 					if (op == Operation.NOT_IN_LIST) {
-						p.sendMessage(ChatColor.RED + "This player is not assigned to your container!");
+						p.sendMessage(ChatColor.RED + lang.notAssigned);
 					}
 					if (op == Operation.NOT_PROTECTED) {
-						p.sendMessage(ChatColor.RED + "This container is not protected.");
+						p.sendMessage(ChatColor.RED + lang.notProtected);
 					}
 					if (op == Operation.FAIL) {
-						p.sendMessage(ChatColor.RED + "Something went wrong!");
+						p.sendMessage(ChatColor.RED + lang.wrong);
 					}
 					return true;
 				}

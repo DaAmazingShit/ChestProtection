@@ -106,7 +106,7 @@ public class Blocks extends BlockListener {
 		if (DatabaseManager.isContainerProtected(e.getBlock().getLocation())) {
 			if ((e.getPlayer().isOp() && ConfigManager.opAccess()) || (Permission.hasPlayer(e.getPlayer(), Perm.REMOVE_OTHER) && cp.pe)) {
 				DatabaseManager.removeContainerFromDB(e.getBlock().getLocation());
-				e.getPlayer().sendMessage(ChatColor.YELLOW + "Removed protected container.");
+				e.getPlayer().sendMessage(ChatColor.YELLOW + cp.lang.removedProtContAdmin);
 				return;
 			}
 			if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation()) == false) {

@@ -1,13 +1,28 @@
 strings:
     no_access: 'Brak dostepu.'
+    no_perm: Nie masz uprawnien!
     protection_removed: 'Pojemnik juz nie jest chroniony.'
     protection_added: 'Pojemnik jest teraz chroniony.'
     command_remove: 'usun'
     command_addplayer: dodajgracza
     command_removeplayer: usungracza
     command_add: 'dodaj'
+    command_info: info
     container_not_selected: 'Nie zaznaczyles pojemnika!'
-    help_add: ' dodaj - Dodaje ochrone do wczesniej zaznaczonego pojemnika (LPM)'
-    help_remove: ' usun - Usuwa ochrone z wczesniej zaznaczonego pojemnika (LPM)'
-    help_addplayer: ' dodajgracza <gracz> - Umozliwa graczowi dostep do pojemnika'
-    help_removeplayer: ' usungracza <gracz> - Blokuje dostep dla gracza do pojemnika'
+    help_add: ' dodaj - Dodaje ochrone do pojemnika (LPM)'
+    help_remove: ' usun - Usuwa ochrone z pojemnika (LPM)'
+    help_addplayer: ' dodajgracza <gracz> - Daje graczowi prawa do pojemnika'
+    help_removeplayer: ' usungracza <gracz> - Zabiera graczowi prawa do pojemnika'
+    help_info: ' info - Pokazuje liste graczy, ktorzy maja dostep do pojemnika'
+    admin:
+        removed_container: Usunieto zabezpieczony pojemnik.
+        access_container: Ten pojemnik jest zabezpieczony.
+    went_wrong: Cos poszlo nie tak!
+    not_protected: Ten pojemnik nie jest zabezpieczony.
+    removed_from: Odebrano graczowi prawa do pojemnika!
+    added_to: Dodano graczowi prawa do pojemnika!
+    not_assigned: Ten gracz nie ma praw do pojemnika!
+    already_assigned: Ten gracz juz posiada prawa do tego pojemnika!
+    already_protected: Ten pojemnik jest juz zabezpieczony!
+    no_player: 'Wyglada na to, ze nie istniejesz...'
+    players_owning: 'Gracze majacy prawo do tego pojemnika:'

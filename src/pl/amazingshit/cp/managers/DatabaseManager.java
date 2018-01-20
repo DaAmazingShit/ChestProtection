@@ -78,9 +78,6 @@ public class DatabaseManager {
 		List<String> ret = new LinkedList<String>();
 		try {
 			ret = config.getStringList(toString(loc), ret);
-			if (ret.isEmpty()) {
-				return null;
-			}
 			return ret;
 		}
 		catch (Exception ex) {
