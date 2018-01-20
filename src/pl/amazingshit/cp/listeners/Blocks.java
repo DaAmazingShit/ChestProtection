@@ -36,6 +36,9 @@ public class Blocks extends BlockListener {
 		if (!ConfigManager.autoProtection()) {
 			return;
 		}
+		if (e.getPlayer().isOp() && !ConfigManager.autoOPProtection()) {
+			return;
+		}
 		World world = cp.instance.getServer().getWorld(e.getBlockPlaced().getLocation().getWorld().getName());
 		if (e.getBlockPlaced().getType() == Material.CHEST) {
 			

@@ -32,6 +32,11 @@ public class ConfigManager {
 		return config.getBoolean("auto-protection", true);
 	}
 
+	public static Boolean autoOPProtection() {
+		config.load();
+		return config.getBoolean("auto-protection-ops", true);
+	}
+
 	/**
 	 * Do configuration exists? If no it will return false.
 	 * 
