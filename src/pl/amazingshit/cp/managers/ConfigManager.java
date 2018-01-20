@@ -13,7 +13,7 @@ public class ConfigManager {
 	public static ConfigUtil config = new ConfigUtil(new File("plugins/ChestProtection", "config.yml"));
 
 	/**
-	 * Returns true if ops are allowed to modify protected containers.
+	 * Returns true if OPs are allowed to modify protected containers.
 	 * 
 	 * @return access
 	 */
@@ -23,9 +23,19 @@ public class ConfigManager {
 	}
 
 	/**
+	 * Returns true if auto protection is enabled.
+	 * 
+	 * @return enabled
+	 */
+	public static Boolean autoProtection() {
+		config.load();
+		return config.getBoolean("auto-protection", true);
+	}
+
+	/**
 	 * Do configuration exists? If no it will return false.
 	 * 
-	 * @return database exists
+	 * @return exists
 	 */
 	public static Boolean configExists() {
 		config.load();
@@ -59,6 +69,8 @@ public class ConfigManager {
 			);
 			config.setProperty("version", cp.instance.getDescription().getVersion());
 			config.setProperty("allow-ops", false);
+			config.setProperty("auto-protection", true);
+			config.setProperty("auto-protection-ops", true);
 			config.save_();
 			System.out.print(cp.prefix + "Done.");
 			return Operation.SUCCESS;

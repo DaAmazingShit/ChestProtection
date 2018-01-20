@@ -14,7 +14,6 @@ import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import pl.amazingshit.cp.ChestProtection;
 import pl.amazingshit.cp.cp;
 import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
@@ -28,6 +27,13 @@ public class Blocks extends BlockListener {
 	@Override
 	public void onBlockPlace(BlockPlaceEvent e) {
 		if (!(e.getBlockPlaced().getType() == Material.CHEST || e.getBlockPlaced().getType() == Material.FURNACE || e.getBlockPlaced().getType() == Material.DISPENSER || e.getBlockPlaced().getType() == Material.JUKEBOX || e.getBlockPlaced().getType() == Material.BURNING_FURNACE)) {
+			if (DatabaseManager.isContainerProtected(e.getBlockPlaced().getLocation())) {
+				DatabaseManager.removeContainerFromDB(e.getBlockPlaced().getLocation());
+				e.getPlayer().sendMessage(cp.lang.protectionRemoved);
+			}
+			return;
+		}
+		if (!ConfigManager.autoProtection()) {
 			return;
 		}
 		World world = cp.instance.getServer().getWorld(e.getBlockPlaced().getLocation().getWorld().getName());
@@ -45,28 +51,28 @@ public class Blocks extends BlockListener {
 			List<String> players = new LinkedList<String>();
 			if (world.getBlockAt(xminus, y, z).getType() == Material.CHEST && DatabaseManager.isContainerProtected(world.getBlockAt(xminus, y, z).getLocation())) {
 				if (!DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(xminus, y, z).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+					e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
 			if (world.getBlockAt(x, y, zminus).getType() == Material.CHEST && DatabaseManager.isContainerProtected(world.getBlockAt(x, y, zminus).getLocation())) {
 				if (!DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(x, y, zminus).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+					e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
 			if (world.getBlockAt(x1, y, z).getType() == Material.CHEST && DatabaseManager.isContainerProtected(world.getBlockAt(x1, y, z).getLocation())) {
 				if (!DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(x1, y, z).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+					e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
 			}
 			if (world.getBlockAt(x, y, z1).getType() == Material.CHEST && DatabaseManager.isContainerProtected(world.getBlockAt(x, y, z1).getLocation())) {
 				if (!DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), world.getBlockAt(x, y, z1).getLocation())) {
-					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+					e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 					e.setCancelled(true);
 					return;
 				}
@@ -77,11 +83,11 @@ public class Blocks extends BlockListener {
 			for (String p : players) {
 				DatabaseManager.addPlayerToContainer(p, e.getBlockPlaced().getLocation());
 			}
-			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
+			e.getPlayer().sendMessage(ChatColor.YELLOW + cp.lang.protectionAdded);
 			return;
 		}
 		DatabaseManager.addContainerToDB(e.getPlayer(), e.getBlockPlaced().getLocation());
-		e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionAdded);
+		e.getPlayer().sendMessage(ChatColor.YELLOW + cp.lang.protectionAdded);
 	}
 
 	@Override
@@ -96,12 +102,12 @@ public class Blocks extends BlockListener {
 				return;
 			}
 			if (DatabaseManager.doesPlayerOwnContainer(e.getPlayer(), e.getBlock().getLocation()) == false) {
-				e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+				e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 				e.setCancelled(true);
 				return;
 			}
 			DatabaseManager.removeContainerFromDB(e.getBlock().getLocation());
-			e.getPlayer().sendMessage(ChatColor.YELLOW + ChestProtection.lang.protectionRemoved);
+			e.getPlayer().sendMessage(ChatColor.YELLOW + cp.lang.protectionRemoved);
 		}
 	}
 
@@ -133,7 +139,7 @@ public class Blocks extends BlockListener {
 					lastClicked.put(e.getPlayer().getName(), e.getBlock().getLocation());
 				}
 				else {
-					e.getPlayer().sendMessage(ChatColor.RED + ChestProtection.lang.noAccess);
+					e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 					e.setCancelled(true);
 				}
 			}
