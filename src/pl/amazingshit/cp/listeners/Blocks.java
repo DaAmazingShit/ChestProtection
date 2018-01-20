@@ -31,7 +31,7 @@ public class Blocks extends BlockListener {
 		if (!(e.getBlockPlaced().getType() == Material.CHEST || e.getBlockPlaced().getType() == Material.FURNACE || e.getBlockPlaced().getType() == Material.DISPENSER || e.getBlockPlaced().getType() == Material.JUKEBOX || e.getBlockPlaced().getType() == Material.BURNING_FURNACE)) {
 			if (DatabaseManager.isContainerProtected(e.getBlockPlaced().getLocation())) {
 				DatabaseManager.removeContainerFromDB(e.getBlockPlaced().getLocation());
-				e.getPlayer().sendMessage(cp.lang.protectionRemoved);
+				e.getPlayer().sendMessage(ChatColor.RED + cp.lang.protectionRemoved);
 			}
 			return;
 		}
