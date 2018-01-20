@@ -2,6 +2,8 @@ package pl.amazingshit.cp;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftServer;
@@ -116,9 +118,25 @@ public class ChestProtection extends JavaPlugin {
 				}
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location toAdd = Blocks.lastClicked.get(p.getName());
+					World world = toAdd.getWorld();
+					if (world.getBlockAt(toAdd.getBlockX()+1, toAdd.getBlockY(), toAdd.getBlockZ()).getType() == 
+							Material.CHEST) {
+						DatabaseManager.addContainerToDB(p, world.getBlockAt(toAdd.getBlockX()+1, toAdd.getBlockY(), toAdd.getBlockZ()).getLocation());
+					}
+					if (world.getBlockAt(toAdd.getBlockX()-1, toAdd.getBlockY(), toAdd.getBlockZ()).getType() == 
+							Material.CHEST) {
+						DatabaseManager.addContainerToDB(p, world.getBlockAt(toAdd.getBlockX()-1, toAdd.getBlockY(), toAdd.getBlockZ()).getLocation());
+					}
+					if (world.getBlockAt(toAdd.getBlockX(), toAdd.getBlockY(), toAdd.getBlockZ()+1).getType() == 
+							Material.CHEST) {
+						DatabaseManager.addContainerToDB(p, world.getBlockAt(toAdd.getBlockX(), toAdd.getBlockY(), toAdd.getBlockZ()+1).getLocation());
+					}
+					if (world.getBlockAt(toAdd.getBlockX(), toAdd.getBlockY(), toAdd.getBlockZ()-1).getType() == 
+							Material.CHEST) {
+						DatabaseManager.addContainerToDB(p, world.getBlockAt(toAdd.getBlockX(), toAdd.getBlockY(), toAdd.getBlockZ()-1).getLocation());
+					}
 					
 					Operation op = DatabaseManager.addContainerToDB(p, toAdd);
-					
 					if (op == Operation.SUCCESS) {
 						p.sendMessage(ChatColor.GREEN + lang.protectionAdded);
 					}
@@ -131,7 +149,6 @@ public class ChestProtection extends JavaPlugin {
 					if (op == Operation.NULL) {
 						p.sendMessage(ChatColor.RED + "It seems that you don't exist...");
 					}
-					
 					return true;
 				} else {
 					p.sendMessage(ChatColor.RED + lang.containerNotSelected);

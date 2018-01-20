@@ -93,7 +93,7 @@ public class DatabaseManager {
 	 * 
 	 * @param p playername
 	 * @param loc location
-	 * @return operation - NOT_PROTECTED, NULL, ALREADY_EXISTS, SUCCESS, FAIL
+	 * @return operation - NULL, ALREADY_EXISTS, SUCCESS, FAIL
 	 */
 	public static Operation addPlayerToContainer(String p, Location loc) {
 		try {
