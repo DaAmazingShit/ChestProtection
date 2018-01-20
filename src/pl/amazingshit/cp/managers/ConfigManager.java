@@ -19,7 +19,7 @@ public class ConfigManager {
 	 */
 	public static Boolean opAccess() {
 		config.load();
-		return config.getBoolean("allow-ops", false);
+		return config.getBoolean("allow-ops", true);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class ConfigManager {
 					"# Warning! ChestProtection becomes weird while using it in spawn-protection region"
 			);
 			config.setProperty("version", cp.instance.getDescription().getVersion());
-			config.setProperty("allow-ops", false);
+			config.setProperty("allow-ops", true);
 			config.setProperty("auto-protection", true);
 			config.setProperty("auto-protection-ops", true);
 			config.save_();

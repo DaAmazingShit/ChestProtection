@@ -5,6 +5,8 @@ import java.io.File;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import pl.amazingshit.cp.util.ConfigUtil;
+import pl.amazingshit.cp.util.Permission;
+import pl.amazingshit.cp.util.Permission.Perm;
 /**
  * Manages language files.
  */
@@ -16,6 +18,7 @@ public class LanguageManager {
 	public ConfigUtil langSource          = null;
 	
 	public String noAccess                = null;
+	public String noPerm                  = null;
 	public String protectionAdded         = null;
 	public String protectionRemoved       = null;
 	public String protectionArgRemove     = null;
@@ -58,6 +61,7 @@ public class LanguageManager {
 			}
 			
 			this.noAccess               = langSource.getString(main + ".no_access", this.noAccess);
+			this.noPerm                 = langSource.getString(main + ".no_perm", this.noPerm);
 			this.protectionAdded        = langSource.getString(main + ".protection_added", this.protectionAdded);
 			this.protectionRemoved      = langSource.getString(main + ".protection_removed", this.protectionRemoved);
 			this.protectionArgRemove    = langSource.getString(main + ".command_remove", this.protectionArgRemove);
@@ -78,6 +82,7 @@ public class LanguageManager {
 	
 	protected void Default() {
 		this.noAccess               = "You cannot access this container.";
+		this.noPerm                 = "You don't have permission to do this!";
 		this.protectionAdded        = "This container is now protected.";
 		this.protectionRemoved      = "This container is no longer protected.";
 		this.protectionArgRemove    = "remove";
@@ -97,6 +102,7 @@ public class LanguageManager {
 		use = new ConfigUtil(file);
 		use.load();
 		use.setProperty(main + ".no_access", "You cannot access this container.");
+		use.setProperty(main + ".no_perm", "You don't have permission to do this!");
 		use.setProperty(main + ".protection_added", "Added protection to your container.");
 		use.setProperty(main + ".protection_removed", "Removed protection from your container.");
 		use.setProperty(main + ".command_remove", "remove");
@@ -118,9 +124,20 @@ public class LanguageManager {
 	 * @param p player
 	 */
 	public void displayHelp(String cmd, Player p) {
-		p.sendMessage(ChatColor.RED + "/" + cmd + this.helpAdd);
-		p.sendMessage(ChatColor.RED + "/" + cmd + this.helpRemove);
-		p.sendMessage(ChatColor.RED + "/" + cmd + this.helpAddPlayer);
-		p.sendMessage(ChatColor.RED + "/" + cmd + this.helpRemovePlayer);
+		if (!Permission.hasPlayer(p, Perm.CREATE) && !Permission.hasPlayer(p, Perm.REMOVE) && !Permission.hasPlayer(p, Perm.PLAYER_ADD) && !Permission.hasPlayer(p, Perm.PLAYER_REMOVE)) {
+			p.sendMessage("You have no permission to any of ChestProtection features.");
+		}
+		if (Permission.hasPlayer(p, Perm.CREATE)) {
+			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpAdd);
+		}
+		if (Permission.hasPlayer(p, Perm.REMOVE)) {
+			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpRemove);
+		}
+		if (Permission.hasPlayer(p, Perm.PLAYER_ADD)) {
+			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpAddPlayer);
+		}
+		if (Permission.hasPlayer(p, Perm.PLAYER_REMOVE)) {
+			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpRemovePlayer);
+		}
 	}
 }
