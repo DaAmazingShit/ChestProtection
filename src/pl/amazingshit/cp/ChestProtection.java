@@ -71,7 +71,7 @@ public class ChestProtection extends JavaPlugin {
 	}
 
 	public static String getVersion() {
-		return "1.2";
+		return instance.getDescription().getVersion();
 	}
 
 	@Override
