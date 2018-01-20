@@ -2,7 +2,7 @@ strings:
     no_access: 'Brak dostepu.'
     no_perm: Nie masz uprawnien!
     protection_removed: 'Pojemnik juz nie jest chroniony.'
-    protection_added: 'Pojemnik jest teraz chroniony.'
+    protection_added: 'Pojemnik jest od teraz chroniony.'
     command_remove: 'usun'
     command_addplayer: dodajgracza
     command_removeplayer: usungracza
