@@ -23,7 +23,7 @@ import pl.amazingshit.cp.util.Permission.Perm;
  * Block listener.
  */
 public class Blocks extends BlockListener {
-	//                    player  container
+
 	public static HashMap<String, Location> lastClicked = new HashMap<String, Location>();
 
 	@Override

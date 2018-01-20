@@ -3,7 +3,9 @@ package pl.amazingshit.cp.managers;
 import java.io.File;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import pl.amazingshit.cp.util.ConfigUtil;
 import pl.amazingshit.cp.util.Permission;
 import pl.amazingshit.cp.util.Permission.Perm;
@@ -182,24 +184,34 @@ public class LanguageManager {
 	 * @param cmd what player typed
 	 * @param p player
 	 */
-	public void displayHelp(String cmd, Player p) {
+	public void displayHelp(String cmd, CommandSender sender) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("Pomoc | Help:");
+			sender.sendMessage("/cpreload - Reloads the plugin");
+			return;
+		}
+		Player p = (Player)sender;
 		if (!Permission.hasPlayer(p, Perm.CREATE) && !Permission.hasPlayer(p, Perm.REMOVE) && !Permission.hasPlayer(p, Perm.PLAYER_ADD) && !Permission.hasPlayer(p, Perm.PLAYER_REMOVE)) {
 			p.sendMessage("You have no permission to any of ChestProtection command features.");
 		}
+		p.sendMessage(ChatColor.BLUE + "Pomoc | Help:");
 		if (Permission.hasPlayer(p, Perm.CREATE)) {
-			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpAdd);
+			p.sendMessage(ChatColor.YELLOW + "/" + cmd + this.helpAdd);
 		}
 		if (Permission.hasPlayer(p, Perm.REMOVE)) {
-			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpRemove);
+			p.sendMessage(ChatColor.YELLOW + "/" + cmd + this.helpRemove);
 		}
 		if (Permission.hasPlayer(p, Perm.PLAYER_ADD)) {
-			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpAddPlayer);
+			p.sendMessage(ChatColor.YELLOW + "/" + cmd + this.helpAddPlayer);
 		}
 		if (Permission.hasPlayer(p, Perm.PLAYER_REMOVE)) {
-			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpRemovePlayer);
+			p.sendMessage(ChatColor.YELLOW + "/" + cmd + this.helpRemovePlayer);
 		}
 		if (Permission.hasPlayer(p, Perm.SHOW_INFO)) {
-			p.sendMessage(ChatColor.RED + "/" + cmd + this.helpInfo);
+			p.sendMessage(ChatColor.YELLOW + "/" + cmd + this.helpInfo);
+		}
+		if (Permission.hasPlayer(p, Perm.RELOAD)) {
+			p.sendMessage(ChatColor.YELLOW + "/cpreload - Reloads the plugin");
 		}
 	}
 }

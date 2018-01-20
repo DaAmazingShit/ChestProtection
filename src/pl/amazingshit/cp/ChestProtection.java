@@ -70,14 +70,32 @@ public class ChestProtection extends JavaPlugin {
 		pm.registerEvent(Type.PLUGIN_ENABLE,   new Plugins(),    Priority.Monitor, this);
 	}
 
+	/**
+	 * Gets the version of the CPPlugin.
+	 */
 	public static String getVersion() {
 		return instance.getDescription().getVersion();
 	}
 
+	/**
+	 * Can be called manually - maybe...
+	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String cmdalias, String[] args) {
-		
 		if (!(sender instanceof Player)) {
+			if (cmd.getName().equalsIgnoreCase("cp")) {
+				if (args.length == 0) {
+					lang.displayHelp(cmdalias, sender);
+					return true;
+				}
+			}
+			if (cmd.getName().equalsIgnoreCase("cpreload")) {
+				DatabaseManager.config.load();
+				lang.setup();
+				ConfigManager.config.load();
+				sender.sendMessage("Reloaded ChestProtection.");
+				return true;
+			}
 			return true;
 		}
 		Player p = (Player)sender;
