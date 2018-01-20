@@ -1,23 +1,12 @@
 package pl.amazingshit.cp.listeners;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
-
-import pl.amazingshit.cp.cp;
-import pl.amazingshit.cp.managers.ConfigManager;
-import pl.amazingshit.cp.managers.DatabaseManager;
-import pl.amazingshit.cp.util.Permission;
-import pl.amazingshit.cp.util.Permission.Perm;
 /**
  * Player listener.
  */
 public class Players extends PlayerListener {
 	
-	@Override
+	/*@Override
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
 			return;
@@ -38,5 +27,5 @@ public class Players extends PlayerListener {
 			e.getPlayer().sendMessage(ChatColor.RED + cp.lang.noAccess);
 			e.setCancelled(true);
 		}
-	}
+	}*/
 }

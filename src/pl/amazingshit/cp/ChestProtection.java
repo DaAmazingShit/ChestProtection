@@ -18,7 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import pl.amazingshit.cp.listeners.Blocks;
 import pl.amazingshit.cp.listeners.Explosions;
-import pl.amazingshit.cp.listeners.Players;
 import pl.amazingshit.cp.listeners.Plugins;
 import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
@@ -59,11 +58,10 @@ public class ChestProtection extends JavaPlugin {
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal,  this);
-		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal,  this);
-		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal,  this);
+		pm.registerEvent(Type.BLOCK_PLACED,    new Blocks(),     Priority.Normal,  this);
+		pm.registerEvent(Type.BLOCK_DAMAGED,   new Blocks(),     Priority.Normal,  this);
 		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal,  this);
-		
-		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal,  this);
+		pm.registerEvent(Type.BLOCK_INTERACT,  new Blocks(),     Priority.Normal,  this);
 		
 		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal,  this);
 		
