@@ -122,14 +122,36 @@ public class ChestProtection extends JavaPlugin {
 						p.sendMessage(" - " + ChatColor.BLUE + pl);
 					}
 				}
+				else {
+					p.sendMessage(ChatColor.RED + lang.containerNotSelected);
+				}
+				return true;
 			}
 			if (args[0].equalsIgnoreCase(lang.protectionArgRemove)) {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location toRemove = Blocks.lastClicked.get(p.getName());
+					World world = toRemove.getWorld();
 					if (DatabaseManager.doesPlayerOwnContainer(p, toRemove)) {
 						if (!Permission.hasPlayer(p, Perm.REMOVE) && pe) {
 							p.sendMessage(ChatColor.RED + lang.noPerm);
 							return true;
+						}
+						
+						if (world.getBlockAt(toRemove.getBlockX()+1, toRemove.getBlockY(), toRemove.getBlockZ()).getType() == 
+								Material.CHEST) {
+							DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX()+1, toRemove.getBlockY(), toRemove.getBlockZ()).getLocation());
+						}
+						if (world.getBlockAt(toRemove.getBlockX()-1, toRemove.getBlockY(), toRemove.getBlockZ()).getType() == 
+								Material.CHEST) {
+							DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX()-1, toRemove.getBlockY(), toRemove.getBlockZ()).getLocation());
+						}
+						if (world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()+1).getType() == 
+								Material.CHEST) {
+							DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()+1).getLocation());
+						}
+						if (world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()-1).getType() == 
+								Material.CHEST) {
+							DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()-1).getLocation());
 						}
 						DatabaseManager.removeContainerFromDB(toRemove);
 						
@@ -139,6 +161,22 @@ public class ChestProtection extends JavaPlugin {
 					if (!Permission.hasPlayer(p, Perm.REMOVE_OTHER) && pe) {
 						p.sendMessage(ChatColor.RED + lang.noPerm);
 						return true;
+					}
+					if (world.getBlockAt(toRemove.getBlockX()+1, toRemove.getBlockY(), toRemove.getBlockZ()).getType() == 
+							Material.CHEST) {
+						DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX()+1, toRemove.getBlockY(), toRemove.getBlockZ()).getLocation());
+					}
+					if (world.getBlockAt(toRemove.getBlockX()-1, toRemove.getBlockY(), toRemove.getBlockZ()).getType() == 
+							Material.CHEST) {
+						DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX()-1, toRemove.getBlockY(), toRemove.getBlockZ()).getLocation());
+					}
+					if (world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()+1).getType() == 
+							Material.CHEST) {
+						DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()+1).getLocation());
+					}
+					if (world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()-1).getType() == 
+							Material.CHEST) {
+						DatabaseManager.removeContainerFromDB(world.getBlockAt(toRemove.getBlockX(), toRemove.getBlockY(), toRemove.getBlockZ()-1).getLocation());
 					}
 					DatabaseManager.removeContainerFromDB(toRemove);
 					
