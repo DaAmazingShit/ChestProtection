@@ -102,10 +102,6 @@ public class DatabaseManager {
 				
 				List<String> players = new LinkedList<String>();
 				players = config.getStringList(toString(loc), players);
-				if (players.isEmpty()) {
-					removeContainerFromDB(loc);
-					return Operation.NOT_PROTECTED;
-				}
 				if (players.contains(p)) {
 					return Operation.ALREADY_EXISTS;
 				}

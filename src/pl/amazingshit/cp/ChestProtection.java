@@ -28,7 +28,7 @@ import pl.amazingshit.cp.util.Permission.Perm;
  * @author DaAmazingShit
  */
 public class ChestProtection extends JavaPlugin {
-	
+	// TODO: */cp INFO!!!!!!!!!!!!!!!!!!!!!!*
 	public static Plugin instance;
 	public static LanguageManager lang;
 	public static String prefix = "[ChestProtection] ";
