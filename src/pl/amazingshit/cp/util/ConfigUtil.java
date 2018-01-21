@@ -72,7 +72,11 @@ public class ConfigUtil extends Configuration {
 			}
 			header.append(line);
 		}
-		setHeader(header.toString());
+		setOHeader(header.toString());
+	}
+
+	public void setOHeader(String header) {
+		this.header = header;
 	}
 
 	public String getHeader() {
