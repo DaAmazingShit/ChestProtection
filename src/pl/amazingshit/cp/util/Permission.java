@@ -12,11 +12,13 @@ public class Permission {
 
 	public enum Perm {
 
-		SHOW_INFO("cp.admin.info"),
+		SHOW_INFO_OTHER("cp.admin.info"),
 
 		ACCESS_OTHER("cp.admin.access"),
 
 		RELOAD("cp.admin.reload"),
+
+		SHOW_INFO("cp.use.info"),
 
 		PLAYER_REMOVE("cp.use.player.remove"),
 
@@ -69,6 +71,9 @@ public class Permission {
 			}
 			if (perm.equalsIgnoreCase("PLAYER_ADD")) {
 				return Perm.PLAYER_ADD;
+			}
+			if (perm.equalsIgnoreCase("SHOW_INFO_OTHER")) {
+				return Perm.SHOW_INFO_OTHER;
 			}
 			if (perm.equalsIgnoreCase("SHOW_INFO")) {
 				return Perm.SHOW_INFO;
