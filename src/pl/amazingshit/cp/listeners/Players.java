@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 
 import pl.amazingshit.cp.cp;
-import pl.amazingshit.cp.managers.ConfigManager;
 import pl.amazingshit.cp.managers.DatabaseManager;
 import pl.amazingshit.cp.util.Permission;
 import pl.amazingshit.cp.util.Permission.Perm;
@@ -27,7 +26,7 @@ public class Players extends PlayerListener {
 			return;
 		}
 		if (DatabaseManager.isContainerProtected(block.getLocation())) {
-			if ((e.getPlayer().isOp() && ConfigManager.opAccess()) || (Permission.hasPlayer(e.getPlayer(), Perm.ACCESS_OTHER) && cp.pe)) {
+			if ((Permission.hasPlayer(e.getPlayer(), Perm.ACCESS_OTHER))) {
 				e.getPlayer().sendMessage(ChatColor.YELLOW + cp.lang.accessProtContAdmin);
 				return;
 			}

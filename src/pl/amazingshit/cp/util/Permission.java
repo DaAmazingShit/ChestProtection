@@ -1,12 +1,19 @@
 package pl.amazingshit.cp.util;
 
+import java.util.HashMap;
+
 import org.bukkit.entity.Player;
 
 import com.nijikokun.bukkit.Permissions.Permissions;
 
+import pl.amazingshit.cp.cp;
+
 public class Permission {
 
 	public static Boolean hasPlayer(Player p, Perm permission) {
+		if (!cp.pe) {
+			return p.isOp();
+		}
 		return Permissions.Security.has(p, permission.getName());
 	}
 
@@ -31,6 +38,7 @@ public class Permission {
 		CREATE("cp.use.create");
 
 		private String perm;
+		private static HashMap<String, Perm> schowek = new HashMap<String, Perm>();
 
 		private Perm(String perm) {
 			this.perm = perm;
@@ -51,34 +59,13 @@ public class Permission {
 		 * @return Perm.class
 		 */
 		public static Perm getPerm(String perm) {
-			if (perm.equalsIgnoreCase("ACCESS_OTHER")) {
-				return Perm.ACCESS_OTHER;
+			return schowek.get(perm);
+		}
+
+		static {
+			for (Perm everyperm: Perm.values()) {
+				schowek.put(everyperm.name(), everyperm);
 			}
-			if (perm.equalsIgnoreCase("CREATE")) {
-				return Perm.CREATE;
-			}
-			if (perm.equalsIgnoreCase("REMOVE")) {
-				return Perm.REMOVE;
-			}
-			if (perm.equalsIgnoreCase("RELOAD")) {
-				return Perm.RELOAD;
-			}
-			if (perm.equalsIgnoreCase("PLAYER_REMOVE")) {
-				return Perm.PLAYER_REMOVE;
-			}
-			if (perm.equalsIgnoreCase("REMOVE_OTHER")) {
-				return Perm.REMOVE_OTHER;
-			}
-			if (perm.equalsIgnoreCase("PLAYER_ADD")) {
-				return Perm.PLAYER_ADD;
-			}
-			if (perm.equalsIgnoreCase("SHOW_INFO_OTHER")) {
-				return Perm.SHOW_INFO_OTHER;
-			}
-			if (perm.equalsIgnoreCase("SHOW_INFO")) {
-				return Perm.SHOW_INFO;
-			}
-			return null;
 		}
 	}
 }

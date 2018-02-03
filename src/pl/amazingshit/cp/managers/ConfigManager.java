@@ -13,16 +13,6 @@ public class ConfigManager {
 	public static ConfigUtil config = new ConfigUtil(new File("plugins/ChestProtection", "config.yml"));
 
 	/**
-	 * Returns true if OPs are allowed to modify protected containers.
-	 * 
-	 * @return access
-	 */
-	public static Boolean opAccess() {
-		config.load();
-		return config.getBoolean("allow-ops", true);
-	}
-
-	/**
 	 * Returns true if auto protection is enabled.
 	 * 
 	 * @return enabled
@@ -30,11 +20,6 @@ public class ConfigManager {
 	public static Boolean autoProtection() {
 		config.load();
 		return config.getBoolean("auto-protection", true);
-	}
-
-	public static Boolean autoOPProtection() {
-		config.load();
-		return config.getBoolean("auto-protection-ops", true);
 	}
 
 	/**
@@ -73,9 +58,7 @@ public class ConfigManager {
 					"# Warning! ChestProtection becomes weird while using it in spawn-protection region"
 			);
 			config.setProperty("version", cp.instance.getDescription().getVersion());
-			config.setProperty("allow-ops", true);
 			config.setProperty("auto-protection", true);
-			config.setProperty("auto-protection-ops", true);
 			config.save_();
 			System.out.print(cp.prefix + "Done.");
 			return Operation.SUCCESS;

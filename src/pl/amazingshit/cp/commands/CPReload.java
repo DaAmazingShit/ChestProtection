@@ -34,7 +34,7 @@ public class CPReload extends CPCommand {
 		}
 		Player p = (Player)sender;
 		if (cmd.getName().equalsIgnoreCase("cpreload")) {
-			if (!Permission.hasPlayer(p, Perm.RELOAD) && cp.pe) {
+			if (!Permission.hasPlayer(p, Perm.RELOAD)) {
 				p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 				return;
 			}

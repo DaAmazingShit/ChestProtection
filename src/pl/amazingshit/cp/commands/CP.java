@@ -64,18 +64,19 @@ public class CP extends CPCommand {
 					for (String pl : players) {
 						p.sendMessage(" - " + ChatColor.BLUE + pl);
 					}
+					return;
 				}
 				else {
 					p.sendMessage(ChatColor.RED + cp.lang.containerNotSelected);
+					return;
 				}
-				return;
 			}
 			if (args[0].equalsIgnoreCase(cp.lang.protectionArgRemove)) {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location toRemove = Blocks.lastClicked.get(p.getName());
 					World world = toRemove.getWorld();
 					if (DatabaseManager.doesPlayerOwnContainer(p, toRemove)) {
-						if (!Permission.hasPlayer(p, Perm.REMOVE) && cp.pe) {
+						if (!Permission.hasPlayer(p, Perm.REMOVE)) {
 							p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 							return;
 						}
@@ -101,7 +102,7 @@ public class CP extends CPCommand {
 						p.sendMessage(ChatColor.YELLOW + cp.lang.protectionRemoved);
 						return;
 					}
-					if (!Permission.hasPlayer(p, Perm.REMOVE_OTHER) && cp.pe) {
+					if (!Permission.hasPlayer(p, Perm.REMOVE_OTHER)) {
 						p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 						return;
 					}
@@ -132,7 +133,7 @@ public class CP extends CPCommand {
 			}
 			
 			if (args[0].equalsIgnoreCase(cp.lang.protectionArgAdd)) {
-				if (!Permission.hasPlayer(p, Perm.CREATE) && cp.pe) {
+				if (!Permission.hasPlayer(p, Perm.CREATE)) {
 					p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 					return;
 				}
@@ -177,7 +178,7 @@ public class CP extends CPCommand {
 			}
 			
 			if (args[0].equalsIgnoreCase(cp.lang.assignToContainerArg)) {
-				if (!Permission.hasPlayer(p, Perm.PLAYER_ADD) && cp.pe) {
+				if (!Permission.hasPlayer(p, Perm.PLAYER_ADD)) {
 					p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 					return;
 				}
@@ -229,7 +230,7 @@ public class CP extends CPCommand {
 			}
 			
 			if (args[0].equalsIgnoreCase(cp.lang.removeFromContainerArg)) {
-				if (!Permission.hasPlayer(p, Perm.PLAYER_REMOVE) && cp.pe) {
+				if (!Permission.hasPlayer(p, Perm.PLAYER_REMOVE)) {
 					p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 					return;
 				}
