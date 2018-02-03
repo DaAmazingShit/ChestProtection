@@ -60,7 +60,7 @@ public class Permission {
 		}
 
 		/**
-		 * Returns true if permission is accessible for everyone.
+		 * Returns true if action is possible for everyone.
 		 */
 		public boolean isDefault() {
 			return this.defaultAccess;
