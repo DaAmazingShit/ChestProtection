@@ -14,34 +14,41 @@ public class Permission {
 		if (!cp.pe) {
 			return p.isOp();
 		}
+		if (permission.isDefault()) {
+			return true;
+		}
 		return Permissions.Security.has(p, permission.getName());
 	}
 
 	public enum Perm {
 
-		SHOW_INFO_OTHER("cp.admin.info"),
+		// Admin
+		SHOW_INFO_OTHER("cp.admin.info", false),
 
-		ACCESS_OTHER("cp.admin.access"),
+		ACCESS_OTHER("cp.admin.access", false),
 
-		RELOAD("cp.admin.reload"),
+		RELOAD("cp.admin.reload", false),
 
-		SHOW_INFO("cp.use.info"),
+		REMOVE_OTHER("cp.admin.remove.others", false),
 
-		PLAYER_REMOVE("cp.use.player.remove"),
+		// Default
+		SHOW_INFO("cp.use.info", true),
 
-		PLAYER_ADD("cp.use.player.add"),
+		PLAYER_REMOVE("cp.use.player.remove", true),
 
-		REMOVE_OTHER("cp.use.remove.others"),
+		PLAYER_ADD("cp.use.player.add", true),
 
-		REMOVE("cp.use.remove.self"),
+		REMOVE("cp.use.remove.self", true),
 
-		CREATE("cp.use.create");
+		CREATE("cp.use.create", true);
 
 		private String perm;
 		private static HashMap<String, Perm> schowek = new HashMap<String, Perm>();
+		private final boolean defaultAccess;
 
-		private Perm(String perm) {
+		private Perm(String perm, boolean da) {
 			this.perm = perm;
+			this.defaultAccess = da;
 		}
 
 		/**
@@ -50,6 +57,13 @@ public class Permission {
 		 */
 		public String getName() {
 			return perm;
+		}
+
+		/**
+		 * Returns true if permission is accessible for everyone.
+		 */
+		public boolean isDefault() {
+			return this.defaultAccess;
 		}
 
 		/**
