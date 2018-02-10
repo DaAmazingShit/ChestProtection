@@ -46,30 +46,39 @@ public class CP extends CPCommand {
 			if (args[0].equalsIgnoreCase(cp.lang.protectionArgInfo)) {
 				if (Blocks.lastClicked.get(p.getName()) != null) {
 					Location infoo = Blocks.lastClicked.get(p.getName());
-					if (!DatabaseManager.doesPlayerOwnContainer(p, infoo) && !Permission.hasPlayer(p, Perm.SHOW_INFO_OTHER)) {
+					if (DatabaseManager.doesPlayerOwnContainer(p, infoo) && Permission.hasPlayer(p, Perm.SHOW_INFO)) {
+						List<String> players = DatabaseManager.getPlayersOwning(infoo);
+						if (players.isEmpty()) {
+							p.sendMessage(ChatColor.YELLOW + cp.lang.notProtected);
+							return;
+						}
+						p.sendMessage(cp.lang.playersOwningThis);
+						for (String pl : players) {
+							p.sendMessage(" - " + ChatColor.BLUE + pl);
+						}
+						return;
+					}
+					if (!DatabaseManager.doesPlayerOwnContainer(p, infoo) && Permission.hasPlayer(p, Perm.SHOW_INFO_OTHER)) {
+						List<String> players = DatabaseManager.getPlayersOwning(infoo);
+						if (players.isEmpty()) {
+							p.sendMessage(ChatColor.YELLOW + cp.lang.notProtected);
+							return;
+						}
+						p.sendMessage(cp.lang.playersOwningThis);
+						for (String pl : players) {
+							p.sendMessage(" - " + ChatColor.BLUE + pl);
+						}
+						return;
+					}
+					else {
 						p.sendMessage(ChatColor.RED + cp.lang.noPerm);
 						return;
 					}
-					if (DatabaseManager.doesPlayerOwnContainer(p, infoo) && !Permission.hasPlayer(p, Perm.SHOW_INFO)) {
-						p.sendMessage(ChatColor.RED + cp.lang.noPerm);
-						return;
-					}
-					
-					List<String> players = DatabaseManager.getPlayersOwning(infoo);
-					if (players.isEmpty()) {
-						p.sendMessage(ChatColor.YELLOW + cp.lang.notProtected);
-						return;
-					}
-					p.sendMessage(cp.lang.playersOwningThis);
-					for (String pl : players) {
-						p.sendMessage(" - " + ChatColor.BLUE + pl);
-					}
-					return;
 				}
 				else {
 					p.sendMessage(ChatColor.RED + cp.lang.containerNotSelected);
-					return;
 				}
+				return;
 			}
 			if (args[0].equalsIgnoreCase(cp.lang.protectionArgRemove)) {
 				if (Blocks.lastClicked.get(p.getName()) != null) {

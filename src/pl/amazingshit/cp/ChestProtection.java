@@ -23,7 +23,6 @@ import pl.amazingshit.cp.util.Bukkit;
  * @author DaAmazingShit
  */
 public class ChestProtection extends JavaPlugin {
-	// TODO: fix /cp removeplayer and addplayer with double chests
 
 	public static Plugin instance;
 	public static LanguageManager lang;
