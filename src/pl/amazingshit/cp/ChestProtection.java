@@ -52,11 +52,13 @@ public class ChestProtection extends JavaPlugin {
 		
 		PluginManager pm = this.getServer().getPluginManager();
 		if (this.getServerVersion() == "1.3" || this.getServerVersion() == "1.3_01" ||
-				this.getServerVersion() == "1.5_01" || this.getServerVersion() == "1.6.1" ||
+				this.getServerVersion() == "1.4" || this.getServerVersion() == "1.4_01" ||
+				this.getServerVersion() == "1.5" || this.getServerVersion() == "1.5_01" ||
+				this.getServerVersion() == "1.5_02" || this.getServerVersion() == "1.6.1" ||
 				this.getServerVersion() == "1.6.3" || this.getServerVersion() == "1.6.4" ||
 				this.getServerVersion() == "1.6.5" || this.getServerVersion() == "1.6.6" ||
 				this.getServerVersion() == "1.7_01" || this.getServerVersion() == "1.7.2" ||
-				this.getServerVersion() == "1.7.3") {
+				this.getServerVersion() == "1.7.3" || this.getServerVersion() == "1.7") {
 			pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal,  this);
 			pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal,  this);
 			pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal,  this);
