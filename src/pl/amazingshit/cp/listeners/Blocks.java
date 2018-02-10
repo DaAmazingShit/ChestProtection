@@ -8,6 +8,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -157,6 +159,29 @@ public class Blocks extends BlockListener {
 		}
 		else {
 			return;
+		}
+	}
+
+	public void onBlockInteract(org.bukkit.event.block.BlockInteractEvent e) {
+		if (!(e.getEntity() instanceof Player)) {
+			return;
+		}
+		Player p = (Player)e.getEntity();
+		Block block = e.getBlock();
+		if (!(e.getBlock().getType() == Material.CHEST || e.getBlock().getType() == Material.FURNACE || e.getBlock().getType() == Material.DISPENSER || e.getBlock().getType() == Material.JUKEBOX)) {
+			return;
+		}
+		if (DatabaseManager.isContainerProtected(block.getLocation())) {
+			if ((Permission.hasPlayer(p, Perm.ACCESS_OTHER))) {
+				p.sendMessage(ChatColor.YELLOW + cp.lang.accessProtContAdmin);
+				return;
+			}
+			if (DatabaseManager.doesPlayerOwnContainer(p, block.getLocation())) {
+				return;
+			}
+		    
+			p.sendMessage(ChatColor.RED + cp.lang.noAccess);
+			e.setCancelled(true);
 		}
 	}
 }

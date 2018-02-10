@@ -1,5 +1,7 @@
 package pl.amazingshit.cp;
 
+import java.lang.reflect.Field;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftServer;
@@ -49,16 +51,37 @@ public class ChestProtection extends JavaPlugin {
 		this.getServer().getLogger().info(prefix + "Enabled, v" + getVersion() + " by AmazingShit.");
 		
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal,  this);
-		pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal,  this);
-		pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal,  this);
-		pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal,  this);
-		
-		pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal,  this);
-		
-		pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal,  this);
-		
-		pm.registerEvent(Type.PLUGIN_ENABLE,   new Plugins(),    Priority.Monitor, this);
+		if (this.getServerVersion() == "1.3" || this.getServerVersion() == "1.3_01" ||
+				this.getServerVersion() == "1.5_01" || this.getServerVersion() == "1.6.1" ||
+				this.getServerVersion() == "1.6.3" || this.getServerVersion() == "1.6.4" ||
+				this.getServerVersion() == "1.6.5" || this.getServerVersion() == "1.6.6" ||
+				this.getServerVersion() == "1.7_01" || this.getServerVersion() == "1.7.2" ||
+				this.getServerVersion() == "1.7.3") {
+			pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal,  this);
+			pm.registerEvent(Type.BLOCK_PLACE,     new Blocks(),     Priority.Normal,  this);
+			pm.registerEvent(Type.BLOCK_DAMAGE,    new Blocks(),     Priority.Normal,  this);
+			pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal,  this);
+			
+			pm.registerEvent(Type.PLAYER_INTERACT, new Players(),    Priority.Normal,  this);
+			
+			pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal,  this);
+			
+			pm.registerEvent(Type.PLUGIN_ENABLE,   new Plugins(),    Priority.Monitor, this);
+		}
+		if (this.getServerVersion() == "1.2" || this.getServerVersion() == "1.2_01" ||
+				this.getServerVersion() == "1.2_02" || this.getServerVersion() == "1.1_02" ||
+				this.getServerVersion() == "1.1" || this.getServerVersion() == "1.1_01") {
+			pm.registerEvent(Type.BLOCK_IGNITE,    new Blocks(),     Priority.Normal,  this);
+			pm.registerEvent(Type.BLOCK_PLACED,    new Blocks(),     Priority.Normal,  this);
+			pm.registerEvent(Type.BLOCK_DAMAGED,   new Blocks(),     Priority.Normal,  this);
+			pm.registerEvent(Type.BLOCK_BREAK,     new Blocks(),     Priority.Normal,  this);
+			
+			pm.registerEvent(Type.BLOCK_INTERACT,  new Blocks(),     Priority.Normal,  this);
+			
+			pm.registerEvent(Type.ENTITY_EXPLODE,  new Explosions(), Priority.Normal,  this);
+			
+			pm.registerEvent(Type.PLUGIN_ENABLE,   new Plugins(),    Priority.Monitor, this);
+		}
 	}
 
 	/**
@@ -74,5 +97,27 @@ public class ChestProtection extends JavaPlugin {
 			c.execute(sender, cmd, cmdalias, args);
 		}
 		return true;
+	}
+
+	public String getServerVersion() {
+		CraftServer cs = server;
+		
+		Field f;
+		try {
+			f = CraftServer.class.getDeclaredField("protocolVersion");
+		}
+		catch (Exception ex) {
+			return null;
+		}
+		
+		String version;
+		try {
+			f.setAccessible(true);
+			version = (String) f.get(cs);
+		}
+		catch (Exception ex) {
+			return null;
+		}
+		return version;
 	}
 }
